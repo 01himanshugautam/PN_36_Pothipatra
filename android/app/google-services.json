@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1017735333317",
+    "project_id": "crafty-sanctum-365617",
+    "storage_bucket": "crafty-sanctum-365617.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1017735333317:android:e4329a4ab221d18547b7ac",
+        "android_client_info": {
+          "package_name": "com.app.pothipatra"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1017735333317-mac2e2ih44o9llbsvna8r5o339iq5t5c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVLFIX8HFS_h_GEfK4a1Rmf1qQu5jOgHk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1017735333317-mac2e2ih44o9llbsvna8r5o339iq5t5c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

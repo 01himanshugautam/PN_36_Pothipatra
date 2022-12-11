@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pothipatra</string>
+
+    <string name="facebook_app_id">799187448031480</string>
+    <string name="fb_login_protocol_scheme">34bb05b803609fae5d6cf8ece8ee8ee8</string>
+    <string name="facebook_client_token">116bc0c95f48df611cebd9af2877d98c</string>
+</resources>
