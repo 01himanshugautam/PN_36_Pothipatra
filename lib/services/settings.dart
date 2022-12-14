@@ -12,7 +12,6 @@ class SettingsService extends GetxService {
   SettingsService() {}
 
   ThemeData getLightTheme() {
-    // TODO change font dynamically
     return ThemeData(
         primaryColor: const Color.fromRGBO(255, 255, 255, 1),
         floatingActionButtonTheme: const FloatingActionButtonThemeData(

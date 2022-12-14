@@ -3,11 +3,13 @@ import 'package:get_storage/get_storage.dart';
 import 'package:pothipatra/models/bookmark_model.dart';
 import 'package:pothipatra/models/categories_model.dart';
 import 'package:pothipatra/models/city_model.dart';
+import 'package:pothipatra/models/filterNewsResponseModel.dart';
 import 'package:pothipatra/models/newsDetail_model.dart';
 import 'package:pothipatra/models/news_model.dart';
 import 'package:pothipatra/models/pages.dart';
 import 'package:pothipatra/models/place_model.dart';
 import 'package:pothipatra/models/responce_model.dart';
+import 'package:pothipatra/models/searchNewsResponseModel.dart';
 import 'package:pothipatra/models/state_model.dart';
 import 'package:pothipatra/services/auth_service.dart';
 
@@ -28,7 +30,8 @@ class NodeApiClient extends GetxService with ApiClient {
   List<Category> category = [];
   List<Category> bookMarkCategory = [];
   List<News> news = [];
-  List<News> filterNews = [];
+  List<SearchNewsResponseModel> searchedNews = [];
+  List<FilterNewsResponseModel> filterNews = [];
   List<News> bookMarkNews = [];
   List<Bookmark> bookMark = [];
   List<States> state = [];
@@ -96,6 +99,36 @@ class NodeApiClient extends GetxService with ApiClient {
     }
   }
 
+  Future<List<SearchNewsResponseModel>> getSearchedNews(
+      String searchText) async {
+    /*Uri uri = categoryID != ""
+        ? getApiBaseUri("user/postlist")
+        : getApiBaseUri("posts");
+    Get.log(uri.toString());*/
+    Uri uri = getApiBaseUri("postsearch?search=$searchText");
+    Get.log(uri.toString());
+    var response = await http.get(uri);
+    /*
+    var response = await http.get(uri, headers: {
+      "Content-type": "application/json",
+      "Accept": "application/json"
+    });*/
+
+    print("uri get searched News ------   $uri");
+    print("response get searched News ------   ${response.body}");
+
+    if (response.statusCode == 200) {
+      searchedNews = parseSearchNews(response.body);
+      return searchedNews
+          .map<SearchNewsResponseModel>(
+              (obj) => SearchNewsResponseModel.fromJson(obj.toJson()))
+          .toList();
+    } else {
+      var jsonResponse = json.decode(response.body);
+      throw Exception(jsonResponse["message"]);
+    }
+  }
+
   Future<List<News>> getNews(Map data) async {
     /*Uri uri = categoryID != ""
         ? getApiBaseUri("user/postlist")
@@ -110,6 +143,10 @@ class NodeApiClient extends GetxService with ApiClient {
       "Content-type": "application/json",
       "Accept": "application/json"
     });*/
+
+    print("uri getNews ------   $uri with body $data");
+    print("response getNews ------   ${response.body}");
+
     if (response.statusCode == 200) {
       news = parseNews(response.body);
       return news.map<News>((obj) => News.fromJson(obj.toJson())).toList();
@@ -119,15 +156,20 @@ class NodeApiClient extends GetxService with ApiClient {
     }
   }
 
-  Future<List<News>> getFilterNews(Map data) async {
+  Future<List<FilterNewsResponseModel>> getFilterNews(Map data) async {
     Uri uri = getApiBaseUri("/filter/postdetails");
     Get.log(uri.toString());
     Get.log(data.toString());
     var response = await http.post(uri, body: data);
 
+    print("uri getFilterNews ------   $uri with body $data");
+    print("response getFilterNews ------   ${response.body}");
+
     if (response.statusCode == 200) {
-      filterNews = parseNews(response.body);
-      return news.map<News>((obj) => News.fromJson(obj.toJson())).toList();
+      filterNews = parseFilterNews(response.body);
+
+
+      return filterNews.map<FilterNewsResponseModel>((obj) => FilterNewsResponseModel.fromJson(obj.toJson())).toList();
     } else {
       var jsonResponse = json.decode(response.body);
       throw Exception(jsonResponse["message"]);
@@ -164,6 +206,10 @@ class NodeApiClient extends GetxService with ApiClient {
       uri,
       body: (data),
     );
+
+    print("uri getBookmarkNewsList ------   $uri with body $data");
+    print("response getBookmarkNewsList ------   $response");
+
     if (response.statusCode == 200) {
       bookMark = parseBookmark(response.body);
       return bookMark
@@ -183,6 +229,10 @@ class NodeApiClient extends GetxService with ApiClient {
       uri,
       body: data,
     );
+
+    print("uri getNewsDetail ------   $uri with body $data");
+    print("response getNewsDetail ------   $response");
+
     if (response.statusCode == 200) {
       var jsonResponse = json.decode(response.body);
       return NewsDetail.fromJson(jsonResponse);
@@ -242,6 +292,8 @@ class NodeApiClient extends GetxService with ApiClient {
     Uri uri = getApiBaseUri("filter/state");
     Get.log(uri.toString());
     var response = await http.get(uri);
+    print("uri get state ------   $uri");
+    print("response get state ------   $response");
     if (response.statusCode == 200) {
       state = parseState(response.body);
       return state.map<States>((obj) => States.fromJson(obj.toJson())).toList();
@@ -262,6 +314,9 @@ class NodeApiClient extends GetxService with ApiClient {
       uri,
       body: (data),
     );
+
+    print("uri get city ------   $uri with body $data");
+    print("response get city ------   $response");
     if (response.statusCode == 200) {
       city = parseCity(response.body);
       return city.map<City>((obj) => City.fromJson(obj.toJson())).toList();
@@ -284,7 +339,6 @@ class NodeApiClient extends GetxService with ApiClient {
     }
   }
 
-
   List<Category> parseCategory(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
     return parsed.map<Category>((json) => Category.fromJson(json)).toList();
@@ -293,6 +347,19 @@ class NodeApiClient extends GetxService with ApiClient {
   List<News> parseNews(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
     return parsed.map<News>((json) => News.fromJson(json)).toList();
+  }
+
+   List<FilterNewsResponseModel> parseFilterNews(String responseBody) {
+    final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+    return parsed.map<FilterNewsResponseModel>((json) => FilterNewsResponseModel.fromJson(json)).toList();
+  }
+
+  List<SearchNewsResponseModel> parseSearchNews(String responseBody) {
+    final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+    return parsed
+        .map<SearchNewsResponseModel>(
+            (json) => SearchNewsResponseModel.fromJson(json))
+        .toList();
   }
 
   List<Bookmark> parseBookmark(String responseBody) {

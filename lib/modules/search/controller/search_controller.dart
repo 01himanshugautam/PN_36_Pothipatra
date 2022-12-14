@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:pothipatra/models/filterNewsResponseModel.dart';
 import 'package:pothipatra/models/news_model.dart';
+import 'package:pothipatra/models/searchNewsResponseModel.dart';
 import 'package:pothipatra/repositories/category_repository.dart';
 
 import '../../../common/auth_popup.dart';
@@ -10,6 +12,8 @@ import '../../global_widgets/ui.dart';
 
 class SearchController extends GetxController {
   final searchNews = <News>[].obs;
+  final filterNews = <FilterNewsResponseModel>[].obs;
+  final searchedNews = <SearchNewsResponseModel>[].obs;
   final isLoading = false.obs;
   CategoryRepository? categoryRepository;
   GetStorage? box;
@@ -30,20 +34,20 @@ class SearchController extends GetxController {
   Future getSearchNews() async {
     try {
       isLoading.value = false;
-
-      Map data = {
-        "CategoryId": "",
-        "HeaderSearch": searchText,
-        // "PlaceId": "",
-        // "Skip": 0,
-        // "Take": 0,
-        "UserId": Get.find<AuthService>().user.value.userId.toString(),
-      };
+      // Map data = {
+      //   "CategoryId": "",
+      //   "HeaderSearch": searchText,
+      //   // "PlaceId": "",
+      //   // "Skip": 0,
+      //   // "Take": 0,
+      //   "UserId": Get.find<AuthService>().user.value.userId.toString(),
+      // };
       isLoading.value = true;
-      searchNews.assignAll(await categoryRepository!.getNews(data));
+      searchedNews
+          .assignAll(await categoryRepository!.getSearchedNews(searchText));
+     
     } catch (e) {
       isLoading.value = true;
-
       Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
     }
   }
@@ -54,7 +58,7 @@ class SearchController extends GetxController {
         "city": city,
       };
       isLoading.value = true;
-      searchNews.assignAll(await categoryRepository!.getFilterNews(data));
+      filterNews.assignAll(await categoryRepository!.getFilterNews(data));
     } catch (e) {
       Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
     }

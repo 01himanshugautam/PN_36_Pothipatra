@@ -26,7 +26,9 @@ class HomeView extends GetView<HomeController> {
           child: Column(
             children: [
               hSizedBox1,
-              CarouselSlider(
+              CarouselSlider.builder(
+                itemCount:
+                    controller.news.length > 10 ? 10 : controller.news.length,
                 options: CarouselOptions(
                   height: 200,
                   viewportFraction: 0.90,
@@ -35,18 +37,40 @@ class HomeView extends GetView<HomeController> {
                   enlargeCenterPage: true,
                   enlargeStrategy: CenterPageEnlargeStrategy.height,
                 ),
-                items: controller.news.map(
-                  (item) {
-                    return InkWell(
-                        onTap: () {
-                          controller.box!
-                              .write('postid', item.postData!.iD.toString());
-                          Get.toNamed(Routes.bookmarkDetail);
-                        },
-                        child: SliderWidget(item));
-                  },
-                ).toList(),
+                itemBuilder:
+                    (BuildContext context, int itemIndex, int pageViewIndex) {
+                  return InkWell(
+                      onTap: () {
+                        controller.box!.write('postid',
+                            controller.news[itemIndex].postData!.id.toString());
+                        Get.toNamed(Routes.bookmarkDetail);
+                      },
+                      child: controller.news.isNotEmpty
+                          ? SliderWidget(controller.news[itemIndex])
+                          : Container());
+                },
               ),
+              // CarouselSlider(
+              //   options: CarouselOptions(
+              //     height: 200,
+              //     viewportFraction: 0.90,
+              //     autoPlay: true,
+              //     aspectRatio: 1,
+              //     enlargeCenterPage: true,
+              //     enlargeStrategy: CenterPageEnlargeStrategy.height,
+              //   ),
+              //   items: controller.news.map(
+              //     (item) {
+              //       return InkWell(
+              //           onTap: () {
+              //             controller.box!
+              //                 .write('postid', item.postData!.iD.toString());
+              //             Get.toNamed(Routes.bookmarkDetail);
+              //           },
+              //           child: SliderWidget(item));
+              //     },
+              //   ).toList(),
+              // ),
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Row(

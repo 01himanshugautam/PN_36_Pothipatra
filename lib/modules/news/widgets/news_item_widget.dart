@@ -40,6 +40,11 @@ class NewsItemWidget extends GetView<NewsController> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          hSizedBox2,
+          // news!.ads == null
+          //     ? const SizedBox()
+          //     : Text("news!.ads!.the0!.postName!"),
+          hSizedBox2,
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Image.network(
@@ -56,19 +61,18 @@ class NewsItemWidget extends GetView<NewsController> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  hSizedBox2,
+                  hSizedBox1,
                   HtmlWidget(
                     news!.postData!.postTitle.toString(),
                     textStyle: TextStyle(
                         height: 2, fontFamily: "Poppins", fontSize: 16),
                   ),
-
+                  hSizedBox1,
                   HtmlWidget(
                     news!.postData!.postContent.toString().substring(0, 450),
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                         overflow: TextOverflow.ellipsis,
                         height: 1.8,
-                        color: Colors.grey,
                         fontFamily: "Poppins",
                         fontWeight: FontWeight.w400,
                         fontSize: 14),
@@ -96,7 +100,7 @@ class NewsItemWidget extends GetView<NewsController> {
                   bottomRight: Radius.circular(20)),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.fromLTRB(20, 8, 8, 8),
               child: Row(
                 children: [
                   InkWell(
@@ -105,7 +109,7 @@ class NewsItemWidget extends GetView<NewsController> {
                         controller.authCheck();
                       } else {
                         Map data = await controller
-                            .likeNews(news!.postData!.iD.toString());
+                            .likeNews(news!.postData!.id.toString());
                         if (data["like"]["msg"] == "Post Disike!") {
                           news!.like = false;
                           controller.news.refresh();
@@ -134,7 +138,7 @@ class NewsItemWidget extends GetView<NewsController> {
                           controller.authCheck();
                         } else {
                           Map response = await controller
-                              .bookmarkNews(news!.postData!.iD.toString());
+                              .bookmarkNews(news!.postData!.id.toString());
                           if (response["bookmark"]["msg"] ==
                               "Bookmark added!") {
                             news!.bookmark2 = true;

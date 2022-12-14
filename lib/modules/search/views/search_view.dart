@@ -121,7 +121,7 @@ class SearchView extends GetView<SearchController> {
             //         ))
             //   ],
             // ),
-            const Expanded(child: SearchListWidget())
+          const Expanded(child: SearchListWidget())
           ],
         ),
       ),

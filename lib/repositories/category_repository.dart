@@ -2,11 +2,13 @@ import 'package:get/get.dart';
 import 'package:pothipatra/models/bookmark_model.dart';
 import 'package:pothipatra/models/categories_model.dart';
 import 'package:pothipatra/models/city_model.dart';
+import 'package:pothipatra/models/filterNewsResponseModel.dart';
 import 'package:pothipatra/models/newsDetail_model.dart';
 import 'package:pothipatra/models/news_model.dart';
 import 'package:pothipatra/models/pages.dart';
 import 'package:pothipatra/models/place_model.dart';
 import 'package:pothipatra/models/responce_model.dart';
+import 'package:pothipatra/models/searchNewsResponseModel.dart';
 import 'package:pothipatra/models/state_model.dart';
 
 import '../providers/node_provider.dart';
@@ -34,7 +36,12 @@ class CategoryRepository {
     return nodeApiClient!.getNews(data);
   }
 
-  Future<List<News>> getFilterNews(Map data) {
+
+  Future<List<SearchNewsResponseModel>> getSearchedNews(String searchText) {
+    return nodeApiClient!.getSearchedNews(searchText);
+  }
+
+  Future<List<FilterNewsResponseModel>> getFilterNews(Map data) {
     return nodeApiClient!.getFilterNews(data);
   }
 

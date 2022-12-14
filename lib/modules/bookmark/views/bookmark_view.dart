@@ -20,32 +20,30 @@ class BookMarkView extends GetView<BookMarkController> {
       return Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(16.0),
-          child:
-          controller.isLoading.isFalse
+          child: controller.isLoading.isFalse
               ? const Center(child: CircularProgressIndicator())
-              :
-          Column(
-            children: [
-              // SearchFieldWidget(
-              //   hintText: "Search",
-              //   keyboardType: TextInputType.phone,
-              //   onSaved: (input) => {},
-              //   labelText: "Search",
-              //   style: FontStyleUtilities.f14(
-              //       fontColor: ColorUtilities.colorPrimary,
-              //       fontWeight: FWT.medium),
-              //   onChanged: (value) => {},
-              //   validator: (input) =>
-              //       input != null && input.isEmpty ? "Please Search" : "",
-              //   suffix: true,
-              //   suffixIcon: Icon(
-              //     Icons.search,
-              //     color: ColorUtilities.logoBluecolor,
-              //     size: 18,
-              //   ),
-              // ),
-              // hSizedBox2,
-             /* controller.isLoading.isFalse
+              : Column(
+                  children: const [
+                    // SearchFieldWidget(
+                    //   hintText: "Search",
+                    //   keyboardType: TextInputType.phone,
+                    //   onSaved: (input) => {},
+                    //   labelText: "Search",
+                    //   style: FontStyleUtilities.f14(
+                    //       fontColor: ColorUtilities.colorPrimary,
+                    //       fontWeight: FWT.medium),
+                    //   onChanged: (value) => {},
+                    //   validator: (input) =>
+                    //       input != null && input.isEmpty ? "Please Search" : "",
+                    //   suffix: true,
+                    //   suffixIcon: Icon(
+                    //     Icons.search,
+                    //     color: ColorUtilities.logoBluecolor,
+                    //     size: 18,
+                    //   ),
+                    // ),
+                    // hSizedBox2,
+                    /* controller.isLoading.isFalse
                   ? const CircularProgressIndicator()
                   : SizedBox(
                       height: 40,
@@ -97,10 +95,10 @@ class BookMarkView extends GetView<BookMarkController> {
                             }));
                           }),
                     ),*/
-              hSizedBox1,
-              const Expanded(child: BookmarkListWidget())
-            ],
-          ),
+                    hSizedBox1,
+                    Expanded(child: BookmarkListWidget())
+                  ],
+                ),
         ),
       );
     });

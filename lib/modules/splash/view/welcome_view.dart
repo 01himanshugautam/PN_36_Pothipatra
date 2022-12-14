@@ -11,6 +11,7 @@ class WelcomeView extends GetView<WelcomeController> {
   Widget build(BuildContext context) {
     Get.put(WelcomeController());
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Center(
           child: Image.asset(
         AssetUtilities.wait,

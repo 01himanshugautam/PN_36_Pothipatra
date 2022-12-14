@@ -47,7 +47,7 @@ class BookMarkDetailView extends GetView<BookMarkDetailController> {
                           fit: BoxFit.fill,
                         ),
                       ),
-                      hSizedBox2,
+                      // hSizedBox2,
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,12 +77,12 @@ class BookMarkDetailView extends GetView<BookMarkDetailController> {
                                       ),
                                     )
                                   : const SizedBox(),
-                              wSizedBox1,
-                              Icon(
-                                Icons.remove_red_eye,
-                                color: ColorUtilities.colorPrimary,
-                                size: 18,
-                              ),
+                              // wSizedBox1,
+                              // Icon(
+                              //   Icons.remove_red_eye,
+                              //   color: ColorUtilities.colorPrimary,
+                              //   size: 18,
+                              // ),
                               wSizedBox,
                               Text(
                                 '',
@@ -148,19 +148,19 @@ class BookMarkDetailView extends GetView<BookMarkDetailController> {
                           hSizedBox2,
                           Row(
                             children: [
-                              CircleAvatar(
-                                radius: 30,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(30),
-                                  child: Image.network(
-                                    controller.news.value.image.toString(),
-                                    width: 60,
-                                    height: 60,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              wSizedBox1,
+                              // CircleAvatar(
+                              //   radius: 30,
+                              //   child: ClipRRect(
+                              //     borderRadius: BorderRadius.circular(30),
+                              //     child: Image.network(
+                              //       controller.news.value.image.toString(),
+                              //       width: 60,
+                              //       height: 60,
+                              //       fit: BoxFit.cover,
+                              //     ),
+                              //   ),
+                              // ),
+                              // wSizedBox1,
                               Expanded(
                                 child: HtmlWidget(
                                   controller.news.value.post!.postTitle
@@ -180,40 +180,38 @@ class BookMarkDetailView extends GetView<BookMarkDetailController> {
                             child: HtmlWidget(
                               controller.news.value.post!.postContent
                                   .toString(),
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                   height: 2,
-                                  color: Colors.grey,
                                   fontFamily: "Poppins",
                                   fontWeight: FontWeight.w400,
                                   fontSize: 14),
                             ),
                           ),
                           hSizedBox1,
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.network(
-                              controller.news.value.image.toString(),
-                              height: 200,
-                              width: MediaQuery.of(context).size.width,
-                              fit: BoxFit.fill,
-                            ),
-                          ),
+                          // ClipRRect(
+                          //   borderRadius: BorderRadius.circular(12),
+                          //   child: Image.network(
+                          //     controller.news.value.image.toString(),
+                          //     height: 200,
+                          //     width: MediaQuery.of(context).size.width,
+                          //     fit: BoxFit.fill,
+                          //   ),
+                          // ),
                           hSizedBox1,
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: HtmlWidget(
-                              controller.news.value.post!.postContent
-                                  .toString(),
-                              textStyle: TextStyle(
-                                  height: 2,
-                                  color: Colors.grey,
-                                  fontFamily: "Poppins",
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 14),
-                            ),
-                          ),
-                          hSizedBox2,
+                          // Padding(
+                          //   padding:
+                          //       const EdgeInsets.symmetric(horizontal: 8.0),
+                          //   child: HtmlWidget(
+                          //     controller.news.value.post!.postContent
+                          //         .toString(),
+                          //     textStyle: const TextStyle(
+                          //         height: 2,
+                          //         fontFamily: "Poppins",
+                          //         fontWeight: FontWeight.w400,
+                          //         fontSize: 14),
+                          //   ),
+                          // ),
+                          // hSizedBox2,
                           SizedBox(
                             height: 40,
                             child: ListView.builder(

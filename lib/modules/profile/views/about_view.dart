@@ -44,7 +44,6 @@ class AboutView extends GetView<ProfileController> {
                           controller.pages.value.content!.rendered.toString(),
                           textStyle: TextStyle(
                               height: 2,
-                              color: Colors.grey,
                               fontFamily: "Poppins",
                               fontWeight: FontWeight.w400,
                               fontSize: 14),

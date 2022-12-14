@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pothipatra/modules/search/controller/search_controller.dart';
+import 'package:pothipatra/modules/search/widget/filter_list_widget.dart';
 
 import '../../../common/color_utils.dart';
 import '../../global_widgets/font_style_util.dart';
@@ -34,7 +35,7 @@ class FilterView extends GetView<SearchController> {
       ),
       body: const Padding(
         padding: EdgeInsets.all(8.0),
-        child: SearchListWidget(),
+        child: FilterListWidget(),
       ),
     );
   }

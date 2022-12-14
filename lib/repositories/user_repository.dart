@@ -5,7 +5,7 @@ import 'package:pothipatra/providers/node_provider.dart';
 class UserRepository {
   NodeApiClient? nodeApiClient;
 
-  UserRepository();
+  UserRepository() {}
 
   Future<UserModal> socialLogin(Map data) {
     nodeApiClient = Get.find<NodeApiClient>();

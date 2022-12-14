@@ -69,7 +69,7 @@ class ThemeAppPages {
         binding: BookMarkDetailBinding()),
     GetPage(
         name: Routes.search,
-        page: () => const SearchView(),
+        page: () => SearchView(),
         binding: SearchBinding()),
     GetPage(
       name: Routes.terms,

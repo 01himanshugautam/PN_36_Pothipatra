@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:pothipatra/common/asset_utils.dart';
 import 'package:pothipatra/common/color_utils.dart';
 import 'package:pothipatra/models/news_model.dart';
+import 'package:pothipatra/models/searchNewsResponseModel.dart';
 import 'package:pothipatra/modules/global_widgets/font_style_util.dart';
 import 'package:pothipatra/modules/global_widgets/sizes_box.dart';
 import 'package:pothipatra/modules/search/controller/search_controller.dart';
@@ -12,11 +13,12 @@ import 'package:pothipatra/services/auth_service.dart';
 
 // ignore: must_be_immutable
 class SearchListItemWidget extends GetView<SearchController> {
-  News news;
+  SearchNewsResponseModel news;
   SearchListItemWidget(this.news, {super.key});
 
   @override
   Widget build(BuildContext context) {
+    print("--------------   ${news.postData}");
     return Container(
       decoration: BoxDecoration(
           color: Get.isDarkMode
@@ -27,16 +29,30 @@ class SearchListItemWidget extends GetView<SearchController> {
       margin: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
         children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
-            child: Image.network(
-              news.image.toString(),
-              width: 110,
-              height: 110,
-              fit: BoxFit.cover,
-            ),
-          ),
+          news.image == false
+              ? ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      bottomLeft: Radius.circular(10)),
+                  child: Image.asset(
+                    Get.isDarkMode
+                        ? AssetUtilities.logoWhite
+                        : AssetUtilities.logo,
+                    width: 110,
+                    height: 110,
+                    fit: BoxFit.cover,
+                  ))
+              : ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      bottomLeft: Radius.circular(10)),
+                  child: Image.network(
+                    news.image.toString(),
+                    width: 110,
+                    height: 110,
+                    fit: BoxFit.cover,
+                  ),
+                ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(left: 10.0, right: 10.0),
@@ -68,7 +84,7 @@ class SearchListItemWidget extends GetView<SearchController> {
                                     controller.authCheck();
                                   } else {
                                     Map data = await controller
-                                        .likeNews(news.postData!.iD.toString());
+                                        .likeNews(news.postData!.id.toString());
                                     if (data["like"]["msg"] == "Post Disike!") {
                                       news.like = false;
                                       news.likecount =
@@ -127,22 +143,24 @@ class SearchListItemWidget extends GetView<SearchController> {
                                 controller.authCheck();
                               } else {
                                 Map response = await controller
-                                    .bookmarkNews(news.postData!.iD.toString());
+                                    .bookmarkNews(news.postData!.id.toString());
                                 if (response["bookmark"]["msg"] ==
                                     "Bookmark added!") {
-                                  news.bookmark2 = true;
+                                  // news.bookmark2 = true;
                                 } else {
-                                  news.bookmark2 = false;
+                                  // news.bookmark2 = false;
                                 }
                                 controller.searchNews.refresh();
                               }
                             },
-                            child: news.bookmark2 == false
-                                ? Icon(
-                                    Icons.bookmark_border,
-                                    color: ColorUtilities.kdarkGreyColor,
-                                  )
-                                : SvgPicture.asset(AssetUtilities.bookmark,
+                            child:
+                                // news.bookmark2 == false
+                                //     ? Icon(
+                                //         Icons.bookmark_border,
+                                //         color: ColorUtilities.kdarkGreyColor,
+                                //       )
+                                //     :
+                                SvgPicture.asset(AssetUtilities.bookmark,
                                     height: 16,
                                     width: 16,
                                     color: ColorUtilities.colorPrimary))

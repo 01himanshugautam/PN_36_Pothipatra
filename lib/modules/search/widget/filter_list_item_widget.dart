@@ -3,18 +3,19 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:pothipatra/common/asset_utils.dart';
-import 'package:pothipatra/common/auth_popup.dart';
 import 'package:pothipatra/common/color_utils.dart';
+import 'package:pothipatra/models/filterNewsResponseModel.dart';
 import 'package:pothipatra/models/news_model.dart';
+import 'package:pothipatra/models/searchNewsResponseModel.dart';
 import 'package:pothipatra/modules/global_widgets/font_style_util.dart';
 import 'package:pothipatra/modules/global_widgets/sizes_box.dart';
-import 'package:pothipatra/modules/home/controller/home_controller.dart';
+import 'package:pothipatra/modules/search/controller/search_controller.dart';
 import 'package:pothipatra/services/auth_service.dart';
 
 // ignore: must_be_immutable
-class NewsCatItemWidget extends GetView<HomeController> {
-  News news;
-  NewsCatItemWidget(this.news, {super.key});
+class FilterListItemWidget extends GetView<SearchController> {
+  FilterNewsResponseModel news;
+  FilterListItemWidget(this.news, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,76 +28,48 @@ class NewsCatItemWidget extends GetView<HomeController> {
           border: Border.all(color: ColorUtilities.kdarkGreyColor, width: 0.5)),
       margin: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
-            child: Image.network(
-              news.image.toString(),
-              width: 110,
-              height: 110,
-              fit: BoxFit.cover,
-            ),
-          ),
-          wSizedBox1,
+          news.image == "false"
+              ? ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      bottomLeft: Radius.circular(10)),
+                  child: Image.asset(
+                    Get.isDarkMode
+                        ? AssetUtilities.logoWhite
+                        : AssetUtilities.logo,
+                    width: 110,
+                    height: 110,
+                    fit: BoxFit.cover,
+                  ))
+              : ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      bottomLeft: Radius.circular(10)),
+                  child: Image.network(
+                    news.image.toString(),
+                    width: 110,
+                    height: 110,
+                    fit: BoxFit.cover,
+                  ),
+                ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(left: 10.0, right: 10.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // hSizedBox1,
-
                   HtmlWidget(
                     news.postData!.postTitle.toString(),
-                    textStyle: const TextStyle(height: 1.5),
+                    textStyle: TextStyle(
+                      height: 1.5,
+                      color: Get.isDarkMode
+                          ? ColorUtilities.colorWhite
+                          : ColorUtilities.colorBlack,
+                    ),
                   ),
-                  // Row(
-                  //   children: const [
-                  //     // ClipRRect(
-                  //     //   borderRadius: BorderRadius.circular(40),
-                  //     //   child: Image.asset(
-                  //     //     AssetUtilities.bbcnews,
-                  //     //     width: 20,
-                  //     //     fit: BoxFit.cover,
-                  //     //   ),
-                  //     // ),
-                  //     // wSizedBox,
-                  //     // Text(
-                  //     //   "header",
-                  //     //   style: FontStyleUtilities.f11(
-                  //     //       fontColor: Get.isDarkMode
-                  //     //           ? ColorUtilities.colorWhite
-                  //     //           : ColorUtilities.colorBlack,
-                  //     //       fontWeight: FWT.semiBold),
-                  //     // ),
-                  //     wSizedBox,
-                  //     /* news.category!.isNotEmpty?
-                  //     Container(
-                  //       padding: const EdgeInsets.symmetric(
-                  //           horizontal: 10, vertical: 2),
-                  //       decoration: BoxDecoration(
-                  //           color: ColorUtilities.colorWhite,
-                  //           borderRadius: BorderRadius.circular(30),
-                  //           border: Border.all(
-                  //               color: ColorUtilities.logoOrangecolor,
-                  //               width: 1)),
-                  //       child: Text(
-                  //         news.category![0].name.toString(),
-                  //         textAlign: TextAlign.center,
-                  //         style: FontStyleUtilities.f11(
-                  //             fontColor: ColorUtilities.logoOrangecolor,
-                  //             fontWeight: FWT.regular),
-                  //       ),
-                  //     ):
-                  //     const SizedBox(),*/
-                  //   ],
-                  // ),
-                  // hSizedBox2,
-                  // Expanded(child: Container()),
+                  hSizedBox1,
                   Padding(
                     padding: const EdgeInsets.only(left: 3, right: 12.0),
                     child: Row(
@@ -117,13 +90,13 @@ class NewsCatItemWidget extends GetView<HomeController> {
                                       news.likecount =
                                           (int.parse(news.likecount!) - 1)
                                               .toString();
-                                      controller.news.refresh();
+                                      controller.searchNews.refresh();
                                     } else {
                                       news.like = true;
                                       news.likecount =
                                           (int.parse(news.likecount!) + 1)
                                               .toString();
-                                      controller.news.refresh();
+                                      controller.searchNews.refresh();
                                     }
                                   }
                                 },
@@ -147,7 +120,7 @@ class NewsCatItemWidget extends GetView<HomeController> {
                                       : ColorUtilities.colorBlack,
                                   fontWeight: FWT.regular),
                             ),
-                            /*wSizedBox1,
+                            /* wSizedBox1,
                             Icon(
                               Icons.comment,
                               color: ColorUtilities.logoOrangecolor,
@@ -173,16 +146,14 @@ class NewsCatItemWidget extends GetView<HomeController> {
                                     .bookmarkNews(news.postData!.id.toString());
                                 if (response["bookmark"]["msg"] ==
                                     "Bookmark added!") {
-                                  news.bookmark2 = true;
+                                  news.bookmark = true;
                                 } else {
-                                  news.bookmark2 = false;
+                                  news.bookmark = false;
                                 }
-                                controller.news.refresh();
-                                // controller
-                                //     .bookmarkNews(news.postData!.iD.toString());
+                                controller.searchNews.refresh();
                               }
                             },
-                            child: news.bookmark2 == false
+                            child: news.bookmark == false
                                 ? Icon(
                                     Icons.bookmark_border,
                                     color: ColorUtilities.kdarkGreyColor,
