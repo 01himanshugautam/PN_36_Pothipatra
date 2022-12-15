@@ -7,7 +7,6 @@ import 'package:pothipatra/models/newsDetail_model.dart';
 import 'package:pothipatra/models/news_model.dart';
 import 'package:pothipatra/models/pages.dart';
 import 'package:pothipatra/models/place_model.dart';
-import 'package:pothipatra/models/responce_model.dart';
 import 'package:pothipatra/models/searchNewsResponseModel.dart';
 import 'package:pothipatra/models/state_model.dart';
 
@@ -35,7 +34,6 @@ class CategoryRepository {
   Future<List<News>> getNews(Map data) {
     return nodeApiClient!.getNews(data);
   }
-
 
   Future<List<SearchNewsResponseModel>> getSearchedNews(String searchText) {
     return nodeApiClient!.getSearchedNews(searchText);
