@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:pothipatra/common/asset_utils.dart';
 import 'package:pothipatra/common/color_utils.dart';
-import 'package:pothipatra/models/news_model.dart';
 import 'package:pothipatra/models/searchNewsResponseModel.dart';
 import 'package:pothipatra/modules/global_widgets/font_style_util.dart';
 import 'package:pothipatra/modules/global_widgets/sizes_box.dart';
@@ -50,7 +48,7 @@ class SearchListItemWidget extends GetView<SearchController> {
                     news.image.toString(),
                     width: 110,
                     height: 110,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                   ),
                 ),
           Expanded(
@@ -60,9 +58,10 @@ class SearchListItemWidget extends GetView<SearchController> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  HtmlWidget(
+                  Text(
                     news.postData!.postTitle.toString(),
-                    textStyle: TextStyle(
+                    maxLines: 2,
+                    style: TextStyle(
                       height: 1.5,
                       color: Get.isDarkMode
                           ? ColorUtilities.colorWhite

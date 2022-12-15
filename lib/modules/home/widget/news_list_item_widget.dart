@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:pothipatra/common/asset_utils.dart';
-import 'package:pothipatra/common/auth_popup.dart';
 import 'package:pothipatra/common/color_utils.dart';
 import 'package:pothipatra/models/news_model.dart';
 import 'package:pothipatra/modules/global_widgets/font_style_util.dart';
@@ -28,7 +26,7 @@ class NewsCatItemWidget extends GetView<HomeController> {
       margin: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ClipRRect(
             borderRadius: const BorderRadius.only(
@@ -37,7 +35,7 @@ class NewsCatItemWidget extends GetView<HomeController> {
               news.image.toString(),
               width: 110,
               height: 110,
-              fit: BoxFit.cover,
+              fit: BoxFit.fill,
             ),
           ),
           wSizedBox1,
@@ -50,9 +48,10 @@ class NewsCatItemWidget extends GetView<HomeController> {
                 children: [
                   // hSizedBox1,
 
-                  HtmlWidget(
+                  Text(
                     news.postData!.postTitle.toString(),
-                    textStyle: const TextStyle(height: 1.5),
+                    maxLines: 2,
+                    style: const TextStyle(height: 1.5),
                   ),
                   // Row(
                   //   children: const [
@@ -73,7 +72,7 @@ class NewsCatItemWidget extends GetView<HomeController> {
                   //     //           : ColorUtilities.colorBlack,
                   //     //       fontWeight: FWT.semiBold),
                   //     // ),
-                  //     wSizedBox,
+                  hSizedBox,
                   //     /* news.category!.isNotEmpty?
                   //     Container(
                   //       padding: const EdgeInsets.symmetric(

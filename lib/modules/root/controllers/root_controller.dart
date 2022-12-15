@@ -13,8 +13,8 @@ import '../../../routes/theme_app_pages.dart';
 import '../../../services/auth_service.dart';
 
 class RootController extends GetxController {
-  final currentIndex = 0.obs;
-  final title = "Home".obs;
+  final currentIndex = 1.obs;
+  final title = "News".obs;
 
   String state = "Rajsthan";
   List<String> stateItems = [
@@ -30,7 +30,7 @@ class RootController extends GetxController {
     'Ringus',
   ];
 
-  RootController() {}
+  RootController();
 
   @override
   Future<void> onInit() async {
@@ -45,7 +45,7 @@ class RootController extends GetxController {
     const HomeView(),
     const NewsView(),
     const BookMarkView(),
-    ProfileView(),
+    const ProfileView(),
   ];
 
   List<String> titleNames = [
@@ -102,7 +102,7 @@ class RootController extends GetxController {
         }
       case 3:
         {
-          await Get.find<ProfileController>();
+          Get.find<ProfileController>();
           break;
         }
     }

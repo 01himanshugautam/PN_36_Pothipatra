@@ -24,7 +24,7 @@ class News {
     this.postData,
   });
 
-  Ads? ads;
+  Map<String, dynamic>? ads;
   bool? bookmark2;
   bool? like;
   bool? love;
@@ -34,7 +34,7 @@ class News {
   PostData? postData;
 
   factory News.fromJson(Map<String, dynamic> json) => News(
-        ads: json["ads"] == null ? null : Ads.fromJson(json["ads"]),
+        ads: json["ads"] == null ? null : json["ads"],
         bookmark2: json["bookmark2"] == null ? null : json["bookmark2"],
         like: json["like"] == null ? null : json["like"],
         love: json["love"] == null ? null : json["love"],
@@ -43,13 +43,15 @@ class News {
         category: json["category"] == null
             ? null
             : List<NewsCategory>.from(
-                json["category"].map((x) => NewsCategory.fromJson(x))),
+                json["category"].map((x) => NewsCategory.fromJson(x)),
+              ),
         postData: json["post_data"] == null
             ? null
             : PostData.fromJson(json["post_data"]),
       );
 
   Map<String, dynamic> toJson() => {
+        "ads": ads == null ? null : ads,
         "bookmark2": bookmark2 == null ? null : bookmark2,
         "like": like == null ? null : like,
         "love": love == null ? null : love,

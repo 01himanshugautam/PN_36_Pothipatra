@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:pothipatra/common/auth_popup.dart';
 import 'package:pothipatra/models/news_model.dart';
 import 'package:pothipatra/modules/global_widgets/ui.dart';
+import 'package:pothipatra/modules/news/widgets/ads_item_widget.dart';
 import 'package:pothipatra/modules/news/widgets/news_item_widget.dart';
 import 'package:pothipatra/repositories/category_repository.dart';
 import 'package:pothipatra/services/auth_service.dart';
@@ -14,6 +15,7 @@ class NewsController extends GetxController
   AppinioSwiperController swipeController = AppinioSwiperController();
 
   RxList<NewsItemWidget> newsItemListWidget = <NewsItemWidget>[].obs;
+  RxList<AdsItemWidget> adsItemListWidget = <AdsItemWidget>[].obs;
   RxList<News> news = <News>[].obs;
 
   final isLoading = false.obs;
@@ -44,6 +46,7 @@ class NewsController extends GetxController
       //  isLoading.value = false;
 
       news.assignAll(await categoryRepository!.getNews(data));
+
       isLoading.value = true;
       for (var element in news) {
         newsItemListWidget.add(NewsItemWidget(
@@ -77,6 +80,7 @@ class NewsController extends GetxController
       return response;
     }
   }
+
   Future<Map> bookmarkNews(id) async {
     try {
       Map data = {
@@ -87,16 +91,15 @@ class NewsController extends GetxController
       isLoading.value = true;
       Map response = await categoryRepository!.bookmarkNews(data);
       return response;
-
     } catch (e) {
       Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
       Map response = {"status": "false"};
       return response;
     }
   }
+
   authCheck() {
     return showDialog(
         context: Get.context!, builder: (context) => const AuthPopup());
   }
-
 }

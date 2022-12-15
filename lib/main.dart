@@ -1,12 +1,11 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:pothipatra/common/onesignal_service.dart';
 import 'package:pothipatra/providers/firebase_provider.dart';
 import 'package:pothipatra/routes/theme_app_pages.dart';
 import 'package:pothipatra/services/settings.dart';
 
-import 'common/color_utils.dart';
 import 'providers/node_provider.dart';
 import 'services/auth_service.dart';
 import 'services/global_service.dart';
@@ -19,6 +18,7 @@ void initServices() async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  OneSignalService().OneSignalSService();
   await Get.putAsync(() => FirebaseProvider().init());
 
   await GetStorage.init();

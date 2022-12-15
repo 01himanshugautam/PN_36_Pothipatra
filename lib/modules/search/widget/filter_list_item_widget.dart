@@ -5,8 +5,6 @@ import 'package:get/get.dart';
 import 'package:pothipatra/common/asset_utils.dart';
 import 'package:pothipatra/common/color_utils.dart';
 import 'package:pothipatra/models/filterNewsResponseModel.dart';
-import 'package:pothipatra/models/news_model.dart';
-import 'package:pothipatra/models/searchNewsResponseModel.dart';
 import 'package:pothipatra/modules/global_widgets/font_style_util.dart';
 import 'package:pothipatra/modules/global_widgets/sizes_box.dart';
 import 'package:pothipatra/modules/search/controller/search_controller.dart';
@@ -40,7 +38,7 @@ class FilterListItemWidget extends GetView<SearchController> {
                         : AssetUtilities.logo,
                     width: 110,
                     height: 110,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                   ))
               : ClipRRect(
                   borderRadius: const BorderRadius.only(
