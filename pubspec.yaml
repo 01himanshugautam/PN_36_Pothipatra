@@ -50,6 +50,15 @@ dependencies:
   flutter_widget_from_html: ^0.8.5
   carousel_slider: ^4.1.1
   onesignal_flutter: ^3.5.0
+  icons_launcher: ^2.0.6
+
+icons_launcher:
+  image_path: "assets/images/png/pothipatra_logo.png"
+  platforms:
+    android:
+      enable: true
+    ios:
+      enable: true
 
 dev_dependencies:
   flutter_test:

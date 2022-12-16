@@ -17,7 +17,7 @@ class NewsView extends GetView<NewsController> {
           unswipe: () {},
           controller: controller.swipeController,
           cards: controller.newsItemListWidget,
-          padding: const EdgeInsets.all(0),
+          padding: const EdgeInsets.all(20),
         )
       ],
     ));

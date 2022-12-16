@@ -14,7 +14,7 @@ class SplashView extends GetView<SplashController> {
       body: Center(
           child: Image.asset(
         Get.isDarkMode ? AssetUtilities.logoWhite : AssetUtilities.logo,
-        width: 130,
+        width: Get.width / 2,
         height: 130,
       )),
     );

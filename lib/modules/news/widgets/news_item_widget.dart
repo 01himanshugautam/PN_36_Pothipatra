@@ -3,13 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pothipatra/common/color_utils.dart';
 import 'package:pothipatra/models/news_model.dart';
 import 'package:pothipatra/modules/global_widgets/sizes_box.dart';
-import 'package:pothipatra/modules/home/widget/filter_bottom-sheet.dart';
 import 'package:pothipatra/modules/news/controller/news_controller.dart';
-import 'package:pothipatra/routes/theme_app_pages.dart';
 import 'package:pothipatra/services/auth_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -25,61 +22,10 @@ class NewsItemWidget extends GetView<NewsController> {
     context.theme;
     return news!.ads == null
         ? Scaffold(
-            appBar: AppBar(
-              elevation: 0,
-              centerTitle: false,
-              automaticallyImplyLeading: false,
-              title: Row(
-                children: [
-                  Image.asset(
-                    Get.isDarkMode
-                        ? AssetUtilities.logoWhite
-                        : AssetUtilities.logo,
-                    width: 100,
-                  ),
-                  /*wSizedBox2,
-                Text(controller.title.value,
-                    style: FontStyleUtilities.f18(
-                      fontColor: Get.isDarkMode
-                          ? ColorUtilities.colorWhite
-                          : ColorUtilities.colorBlack,
-                      fontWeight: FWT.semiBold,
-                    ))*/
-                ],
-              ),
-              actions: [
-                IconButton(
-                    onPressed: () {
-                      Get.toNamed(Routes.search);
-                    },
-                    icon: Icon(
-                      Icons.search,
-                      color: ColorUtilities.colorPrimary,
-                    )),
-                IconButton(
-                  onPressed: () {
-                    showMaterialModalBottomSheet(
-                        context: context,
-                        enableDrag: true,
-                        isDismissible: true,
-                        //barrierColor: ColorUtilities.colorPrimary.withOpacity(0.1),
-                        backgroundColor: Colors.transparent,
-                        builder: (BuildContext bc) {
-                          return const MenuBottomItemWidget();
-                        });
-                  },
-                  icon: Icon(
-                    Icons.filter_list,
-                    color: ColorUtilities.colorPrimary,
-                    size: 21,
-                  ),
-                ),
-              ],
-            ),
             body: Container(
               height: Get.height,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(0),
+                borderRadius: BorderRadius.circular(20),
                 color: Get.isDarkMode
                     ? ColorUtilities.backgroundColor
                     : ColorUtilities.colorWhite,
@@ -97,7 +43,7 @@ class NewsItemWidget extends GetView<NewsController> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(0),
+                    borderRadius: BorderRadius.circular(20),
                     child: Image.network(
                       news!.image.toString(),
                       height: 200,
@@ -122,16 +68,16 @@ class NewsItemWidget extends GetView<NewsController> {
                             ),
                           ),
                           hSizedBox1,
-                          HtmlWidget(
-                            news!.postData!.postContent
-                                .toString()
-                                .substring(0, 450),
-                            textStyle: const TextStyle(
-                                overflow: TextOverflow.ellipsis,
-                                height: 1.8,
-                                fontFamily: "Poppins",
-                                fontWeight: FontWeight.w400,
-                                fontSize: 14),
+                          Text(
+                            news!.postData!.postExcerpt.toString(),
+                            textAlign: TextAlign.justify,
+                            style: const TextStyle(
+                              // overflow: TextOverflow.ellipsis,
+                              height: 1.8,
+                              fontFamily: "Poppins",
+                              fontWeight: FontWeight.w400,
+                              fontSize: 14,
+                            ),
                           ),
                           // Text(
                           //   news!.description.toString(),
@@ -263,12 +209,12 @@ class NewsItemWidget extends GetView<NewsController> {
                 children: [
                   Expanded(
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(0),
+                      borderRadius: BorderRadius.circular(20),
                       child: Image.network(
                         news!.ads!.image.toString(),
                         height: Get.height / 1.4,
                         width: Get.width,
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fill,
                       ),
                     ),
                   ),
