@@ -8,7 +8,6 @@ import 'package:pothipatra/models/newsDetail_model.dart';
 import 'package:pothipatra/models/news_model.dart';
 import 'package:pothipatra/models/pages.dart';
 import 'package:pothipatra/models/place_model.dart';
-import 'package:pothipatra/models/responce_model.dart';
 import 'package:pothipatra/models/searchNewsResponseModel.dart';
 import 'package:pothipatra/models/state_model.dart';
 import 'package:pothipatra/services/auth_service.dart';
@@ -149,7 +148,8 @@ class NodeApiClient extends GetxService with ApiClient {
 
     if (response.statusCode == 200) {
       news = parseNews(response.body);
-      return news.map<News>((obj) => News.fromJson(obj.toJson())).toList();
+      var data = news.map<News>((obj) => News.fromJson(obj.toJson())).toList();
+      return data;
     } else {
       var jsonResponse = json.decode(response.body);
       throw Exception(jsonResponse["message"]);
@@ -168,8 +168,10 @@ class NodeApiClient extends GetxService with ApiClient {
     if (response.statusCode == 200) {
       filterNews = parseFilterNews(response.body);
 
-
-      return filterNews.map<FilterNewsResponseModel>((obj) => FilterNewsResponseModel.fromJson(obj.toJson())).toList();
+      return filterNews
+          .map<FilterNewsResponseModel>(
+              (obj) => FilterNewsResponseModel.fromJson(obj.toJson()))
+          .toList();
     } else {
       var jsonResponse = json.decode(response.body);
       throw Exception(jsonResponse["message"]);
@@ -349,9 +351,12 @@ class NodeApiClient extends GetxService with ApiClient {
     return parsed.map<News>((json) => News.fromJson(json)).toList();
   }
 
-   List<FilterNewsResponseModel> parseFilterNews(String responseBody) {
+  List<FilterNewsResponseModel> parseFilterNews(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
-    return parsed.map<FilterNewsResponseModel>((json) => FilterNewsResponseModel.fromJson(json)).toList();
+    return parsed
+        .map<FilterNewsResponseModel>(
+            (json) => FilterNewsResponseModel.fromJson(json))
+        .toList();
   }
 
   List<SearchNewsResponseModel> parseSearchNews(String responseBody) {

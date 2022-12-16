@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 import '../../../common/color_utils.dart';
 import '../../../models/news_model.dart';
@@ -35,10 +34,13 @@ class SliderWidget extends StatelessWidget {
                 border: Border.all(color: ColorUtilities.colorBlack, width: 1)),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: HtmlWidget(
+              child: Text(
                 news.postData!.postTitle.toString(),
-                textStyle:
-                    TextStyle(height: 1.5, color: ColorUtilities.colorWhite),
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  height: 1.5,
+                  color: ColorUtilities.colorWhite,
+                ),
               ),
             ),
           ),

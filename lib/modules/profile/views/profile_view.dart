@@ -1,9 +1,12 @@
 import 'package:flutter_share/flutter_share.dart';
 import 'package:get/get.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:pothipatra/common/asset_utils.dart';
 import 'package:pothipatra/common/color_utils.dart';
 import 'package:pothipatra/common/custom_button.dart';
 import 'package:pothipatra/modules/global_widgets/font_style_util.dart';
 import 'package:pothipatra/modules/global_widgets/sizes_box.dart';
+import 'package:pothipatra/modules/home/widget/filter_bottom-sheet.dart';
 import 'package:pothipatra/modules/profile/controller/profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:pothipatra/routes/theme_app_pages.dart';
@@ -21,6 +24,55 @@ class ProfileView extends GetView<ProfileController> {
     context.theme;
     // TODO: implement build
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        centerTitle: false,
+        automaticallyImplyLeading: false,
+        title: Row(
+          children: [
+            Image.asset(
+              Get.isDarkMode ? AssetUtilities.logoWhite : AssetUtilities.logo,
+              width: 100,
+            ),
+            /*wSizedBox2,
+                Text(controller.title.value,
+                    style: FontStyleUtilities.f18(
+                      fontColor: Get.isDarkMode
+                          ? ColorUtilities.colorWhite
+                          : ColorUtilities.colorBlack,
+                      fontWeight: FWT.semiBold,
+                    ))*/
+          ],
+        ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Get.toNamed(Routes.search);
+              },
+              icon: Icon(
+                Icons.search,
+                color: ColorUtilities.colorPrimary,
+              )),
+          IconButton(
+            onPressed: () {
+              showMaterialModalBottomSheet(
+                  context: context,
+                  enableDrag: true,
+                  isDismissible: true,
+                  //barrierColor: ColorUtilities.colorPrimary.withOpacity(0.1),
+                  backgroundColor: Colors.transparent,
+                  builder: (BuildContext bc) {
+                    return const MenuBottomItemWidget();
+                  });
+            },
+            icon: Icon(
+              Icons.filter_list,
+              color: ColorUtilities.colorPrimary,
+              size: 21,
+            ),
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -91,7 +143,6 @@ class ProfileView extends GetView<ProfileController> {
               hSizedBox2,
               ListTile(
                 visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
-
                 onTap: () {
                   Get.toNamed(Routes.theme);
                 },
@@ -104,7 +155,6 @@ class ProfileView extends GetView<ProfileController> {
               ),
               ListTile(
                 visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
-
                 onTap: () async {
                   await FlutterShare.share(
                     title: 'Pothipatra',
@@ -121,7 +171,6 @@ class ProfileView extends GetView<ProfileController> {
               ),
               ListTile(
                 visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
-
                 onTap: () async {
                   await launchUrl(Uri.parse(
                       'https://play.google.com/store/apps/details?id=com.app.pothipatra'));
@@ -148,7 +197,6 @@ class ProfileView extends GetView<ProfileController> {
               ),
               ListTile(
                 visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
-
                 onTap: () {
                   controller.getPages("6293");
                   Get.toNamed(Routes.terms);
@@ -162,7 +210,6 @@ class ProfileView extends GetView<ProfileController> {
               ),
               ListTile(
                 visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
-
                 onTap: () {
                   controller.getPages("3");
                   Get.toNamed(Routes.privacy);
@@ -175,17 +222,17 @@ class ProfileView extends GetView<ProfileController> {
                 ),
               ),
 
-              !Get.find<AuthService>().isAuth ?
-              const SizedBox():
-              ListTile(
-                visualDensity: const VisualDensity(horizontal: 0, vertical: -3),
-                onTap: () {
-                  controller.logout();
-                },
-                leading: const Icon(Icons.logout),
-                title: const Text("Logout"),
-              )
-
+              !Get.find<AuthService>().isAuth
+                  ? const SizedBox()
+                  : ListTile(
+                      visualDensity:
+                          const VisualDensity(horizontal: 0, vertical: -3),
+                      onTap: () {
+                        controller.logout();
+                      },
+                      leading: const Icon(Icons.logout),
+                      title: const Text("Logout"),
+                    )
             ],
           ),
         ),

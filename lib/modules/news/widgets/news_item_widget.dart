@@ -3,11 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:pothipatra/common/color_utils.dart';
 import 'package:pothipatra/models/news_model.dart';
 import 'package:pothipatra/modules/global_widgets/sizes_box.dart';
+import 'package:pothipatra/modules/home/widget/filter_bottom-sheet.dart';
 import 'package:pothipatra/modules/news/controller/news_controller.dart';
+import 'package:pothipatra/routes/theme_app_pages.dart';
 import 'package:pothipatra/services/auth_service.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../common/asset_utils.dart';
 
@@ -20,207 +24,266 @@ class NewsItemWidget extends GetView<NewsController> {
   Widget build(BuildContext context) {
     context.theme;
     return news!.ads == null
-        ? Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Get.isDarkMode
-                  ? ColorUtilities.backgroundColor
-                  : ColorUtilities.colorWhite,
-              boxShadow: [
-                BoxShadow(
-                  color: CupertinoColors.systemGrey.withOpacity(0.2),
-                  spreadRadius: 3,
-                  blurRadius: 7,
-                  offset: const Offset(0, 3),
-                )
-              ],
-            ),
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.network(
-                    news!.image.toString(),
-                    height: 200,
-                    width: Get.width,
-                    fit: BoxFit.cover,
+        ? Scaffold(
+            appBar: AppBar(
+              elevation: 0,
+              centerTitle: false,
+              automaticallyImplyLeading: false,
+              title: Row(
+                children: [
+                  Image.asset(
+                    Get.isDarkMode
+                        ? AssetUtilities.logoWhite
+                        : AssetUtilities.logo,
+                    width: 100,
+                  ),
+                  /*wSizedBox2,
+                Text(controller.title.value,
+                    style: FontStyleUtilities.f18(
+                      fontColor: Get.isDarkMode
+                          ? ColorUtilities.colorWhite
+                          : ColorUtilities.colorBlack,
+                      fontWeight: FWT.semiBold,
+                    ))*/
+                ],
+              ),
+              actions: [
+                IconButton(
+                    onPressed: () {
+                      Get.toNamed(Routes.search);
+                    },
+                    icon: Icon(
+                      Icons.search,
+                      color: ColorUtilities.colorPrimary,
+                    )),
+                IconButton(
+                  onPressed: () {
+                    showMaterialModalBottomSheet(
+                        context: context,
+                        enableDrag: true,
+                        isDismissible: true,
+                        //barrierColor: ColorUtilities.colorPrimary.withOpacity(0.1),
+                        backgroundColor: Colors.transparent,
+                        builder: (BuildContext bc) {
+                          return const MenuBottomItemWidget();
+                        });
+                  },
+                  icon: Icon(
+                    Icons.filter_list,
+                    color: ColorUtilities.colorPrimary,
+                    size: 21,
                   ),
                 ),
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        hSizedBox1,
-                        HtmlWidget(
-                          news!.postData!.postTitle.toString(),
-                          textStyle: const TextStyle(
-                            height: 2,
-                            fontFamily: "Poppins",
-                            fontSize: 16,
-                          ),
-                        ),
-                        hSizedBox1,
-                        HtmlWidget(
-                          news!.postData!.postContent
-                              .toString()
-                              .substring(0, 450),
-                          textStyle: const TextStyle(
-                              overflow: TextOverflow.ellipsis,
-                              height: 1.8,
-                              fontFamily: "Poppins",
-                              fontWeight: FontWeight.w400,
-                              fontSize: 14),
-                        ),
-                        // Text(
-                        //   news!.description.toString(),
-                        //   style: FontStyleUtilities.f14(
-                        //       fontColor: Get.isDarkMode
-                        //           ? Colors.white60
-                        //           : Colors.grey.shade700,
-                        //       fontWeight: FWT.regular),
-                        // ),
-                      ],
-                    ),
-                  ),
-                ),
-                hSizedBox2,
-                Container(
-                  decoration: BoxDecoration(
-                    color: Get.isDarkMode
-                        ? ColorUtilities.backgroundColor
-                        : ColorUtilities.colorWhite,
-                    borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20)),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 8, 8, 8),
-                    child: Row(
-                      children: [
-                        InkWell(
-                          onTap: () async {
-                            if (!Get.find<AuthService>().isAuth) {
-                              controller.authCheck();
-                            } else {
-                              Map data = await controller
-                                  .likeNews(news!.postData!.id.toString());
-                              if (data["like"]["msg"] == "Post Disike!") {
-                                news!.like = false;
-                                controller.news.refresh();
-                              } else {
-                                news!.like = true;
-                                controller.news.refresh();
-                              }
-                            }
-                          },
-                          child: news!.like == false
-                              ? Icon(
-                                  Icons.thumb_up_alt_outlined,
-                                  color: ColorUtilities.logoOrangecolor,
-                                  size: 16,
-                                )
-                              : Icon(
-                                  Icons.thumb_up,
-                                  color: ColorUtilities.logoOrangecolor,
-                                  size: 16,
-                                ),
-                        ),
-                        wSizedBox1,
-                        InkWell(
-                            onTap: () async {
-                              if (!Get.find<AuthService>().isAuth) {
-                                controller.authCheck();
-                              } else {
-                                Map response = await controller.bookmarkNews(
-                                    news!.postData!.id.toString());
-                                if (response["bookmark"]["msg"] ==
-                                    "Bookmark added!") {
-                                  news!.bookmark2 = true;
-                                } else {
-                                  news!.bookmark2 = false;
-                                }
-                                controller.news.refresh();
-                              }
-                            },
-                            child: news!.bookmark2 == false
-                                ? Icon(
-                                    Icons.bookmark_border,
-                                    color: ColorUtilities.kdarkGreyColor,
-                                  )
-                                : SvgPicture.asset(AssetUtilities.bookmark,
-                                    height: 16,
-                                    width: 16,
-                                    color: ColorUtilities.colorPrimary))
-
-                        // Text(news!.numberOfLikes.toString()),
-                        // wSizedBox1,
-                        // Container(
-                        //   height: 10,
-                        //   width: 1,
-                        //   color: Colors.grey,
-                        // ),
-                        // wSizedBox1,
-                        // Icon(
-                        //   Icons.thumb_down,
-                        //   size: 16,
-                        //   color: Get.isDarkMode
-                        //       ? ColorUtilities.colorWhite
-                        //       : ColorUtilities.colorBlack,
-                        // ),
-                        // wSizedBox1,
-                        //const Text("0")
-                      ],
-                    ),
-                  ),
-                )
               ],
             ),
-          )
-        : Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Get.isDarkMode
-                  ? ColorUtilities.backgroundColor
-                  : ColorUtilities.colorWhite,
-              boxShadow: [
-                BoxShadow(
-                  color: CupertinoColors.systemGrey.withOpacity(0.2),
-                  spreadRadius: 3,
-                  blurRadius: 7,
-                  offset: const Offset(0, 3),
-                )
-              ],
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
+            body: Container(
+              height: Get.height,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(0),
+                color: Get.isDarkMode
+                    ? ColorUtilities.backgroundColor
+                    : ColorUtilities.colorWhite,
+                boxShadow: [
+                  BoxShadow(
+                    color: CupertinoColors.systemGrey.withOpacity(0.2),
+                    spreadRadius: 3,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3),
+                  )
+                ],
+              ),
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(0),
                     child: Image.network(
-                      news!.ads!['image'].toString(),
-                      height: Get.height / 1.4,
+                      news!.image.toString(),
+                      height: 200,
                       width: Get.width,
                       fit: BoxFit.cover,
                     ),
                   ),
-                ),
-                Text(
-                  news!.ads!['0']['post_title'].toString(),
-                  maxLines: 2,
-                  overflow: TextOverflow.visible,
-                  style: const TextStyle(
-                    height: 2,
-                    fontFamily: "Poppins",
-                    fontSize: 16,
+                  Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          hSizedBox1,
+                          HtmlWidget(
+                            news!.postData!.postTitle.toString(),
+                            textStyle: const TextStyle(
+                              height: 2,
+                              fontFamily: "Poppins",
+                              fontSize: 16,
+                            ),
+                          ),
+                          hSizedBox1,
+                          HtmlWidget(
+                            news!.postData!.postContent
+                                .toString()
+                                .substring(0, 450),
+                            textStyle: const TextStyle(
+                                overflow: TextOverflow.ellipsis,
+                                height: 1.8,
+                                fontFamily: "Poppins",
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14),
+                          ),
+                          // Text(
+                          //   news!.description.toString(),
+                          //   style: FontStyleUtilities.f14(
+                          //       fontColor: Get.isDarkMode
+                          //           ? Colors.white60
+                          //           : Colors.grey.shade700,
+                          //       fontWeight: FWT.regular),
+                          // ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                  hSizedBox2,
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Get.isDarkMode
+                          ? ColorUtilities.backgroundColor
+                          : ColorUtilities.colorWhite,
+                      borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20)),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 8, 8, 8),
+                      child: Row(
+                        children: [
+                          InkWell(
+                            onTap: () async {
+                              if (!Get.find<AuthService>().isAuth) {
+                                controller.authCheck();
+                              } else {
+                                Map data = await controller
+                                    .likeNews(news!.postData!.id.toString());
+                                if (data["like"]["msg"] == "Post Disike!") {
+                                  news!.like = false;
+                                  controller.news.refresh();
+                                } else {
+                                  news!.like = true;
+                                  controller.news.refresh();
+                                }
+                              }
+                            },
+                            child: news!.like == false
+                                ? Icon(
+                                    Icons.thumb_up_alt_outlined,
+                                    color: ColorUtilities.logoOrangecolor,
+                                    size: 16,
+                                  )
+                                : Icon(
+                                    Icons.thumb_up,
+                                    color: ColorUtilities.logoOrangecolor,
+                                    size: 16,
+                                  ),
+                          ),
+                          wSizedBox1,
+                          InkWell(
+                              onTap: () async {
+                                if (!Get.find<AuthService>().isAuth) {
+                                  controller.authCheck();
+                                } else {
+                                  Map response = await controller.bookmarkNews(
+                                      news!.postData!.id.toString());
+                                  if (response["bookmark"]["msg"] ==
+                                      "Bookmark added!") {
+                                    news!.bookmark2 = true;
+                                  } else {
+                                    news!.bookmark2 = false;
+                                  }
+                                  controller.news.refresh();
+                                }
+                              },
+                              child: news!.bookmark2 == false
+                                  ? Icon(
+                                      Icons.bookmark_border,
+                                      color: ColorUtilities.kdarkGreyColor,
+                                    )
+                                  : SvgPicture.asset(AssetUtilities.bookmark,
+                                      height: 16,
+                                      width: 16,
+                                      color: ColorUtilities.colorPrimary))
+
+                          // Text(news!.numberOfLikes.toString()),
+                          // wSizedBox1,
+                          // Container(
+                          //   height: 10,
+                          //   width: 1,
+                          //   color: Colors.grey,
+                          // ),
+                          // wSizedBox1,
+                          // Icon(
+                          //   Icons.thumb_down,
+                          //   size: 16,
+                          //   color: Get.isDarkMode
+                          //       ? ColorUtilities.colorWhite
+                          //       : ColorUtilities.colorBlack,
+                          // ),
+                          // wSizedBox1,
+                          //const Text("0")
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          )
+        : GestureDetector(
+            onTap: () async => await launchUrl(
+                Uri.parse(news!.ads!.postData!.guid.toString())),
+            child: Container(
+              height: Get.height,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: Get.isDarkMode
+                    ? ColorUtilities.backgroundColor
+                    : ColorUtilities.colorWhite,
+                boxShadow: [
+                  BoxShadow(
+                    color: CupertinoColors.systemGrey.withOpacity(0.2),
+                    spreadRadius: 3,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3),
+                  )
+                ],
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(0),
+                      child: Image.network(
+                        news!.ads!.image.toString(),
+                        height: Get.height / 1.4,
+                        width: Get.width,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  // Text(
+                  //   news!.ads!.postData!.postTitle.toString(),
+                  //   maxLines: 2,
+                  //   overflow: TextOverflow.visible,
+                  //   style: const TextStyle(
+                  //     height: 2,
+                  //     fontFamily: "Poppins",
+                  //     fontSize: 16,
+                  //   ),
+                  // ),
+                ],
+              ),
             ),
           );
   }

@@ -24,7 +24,7 @@ class News {
     this.postData,
   });
 
-  Map<String, dynamic>? ads;
+  Ads? ads;
   bool? bookmark2;
   bool? like;
   bool? love;
@@ -34,7 +34,9 @@ class News {
   PostData? postData;
 
   factory News.fromJson(Map<String, dynamic> json) => News(
-        ads: json["ads"] == null ? null : json["ads"],
+        ads: json["ads"] == null
+            ? null
+            : Ads.fromJson(jsonDecode(jsonEncode(json["ads"]))),
         bookmark2: json["bookmark2"] == null ? null : json["bookmark2"],
         like: json["like"] == null ? null : json["like"],
         love: json["love"] == null ? null : json["love"],
@@ -66,20 +68,20 @@ class News {
 
 class Ads {
   Ads({
-    this.the0,
+    this.postData,
     this.image,
   });
 
-  PostData? the0;
+  PostData? postData;
   String? image;
 
-  factory Ads.fromJson(Map<String, dynamic> json) => Ads(
-        the0: json["0"] == null ? null : PostData.fromJson(json["0"]),
-        image: json["image"] == null ? null : json["image"],
-      );
+  Ads.fromJson(Map<String, dynamic> json) {
+    postData = json["0"] == null ? null : PostData.fromJson(json["0"]);
+    image = json["image"] == null ? null : json["image"];
+  }
 
   Map<String, dynamic> toJson() => {
-        "0": the0 == null ? null : the0!.toJson(),
+        "0": postData == null ? null : postData!.toJson(),
         "image": image == null ? null : image,
       };
 }
