@@ -281,20 +281,21 @@ class _CustomSwipeState extends State<CustomSwipe>
             builder: (BuildContext context, BoxConstraints constraints) {
               return Obx(() {
                 return Stack(
-                    clipBehavior: Clip.none,
-                    fit: StackFit.expand,
-                    children: [
-                      ...widget.cards!
-                          .asMap()
-                          .map((index, _) {
-                            return MapEntry(
-                              index,
-                              _item(constraints, index),
-                            );
-                          })
-                          .values
-                          .toList(),
-                    ]);
+                  clipBehavior: Clip.none,
+                  fit: StackFit.expand,
+                  children: [
+                    ...widget.cards!
+                        .asMap()
+                        .map((index, _) {
+                          return MapEntry(
+                            index,
+                            _item(constraints, index),
+                          );
+                        })
+                        .values
+                        .toList(),
+                  ],
+                );
               });
             },
           ),
@@ -308,7 +309,7 @@ class _CustomSwipeState extends State<CustomSwipe>
       return Visibility(
         visible: widget.cards!.length - index <= 2,
         child: Positioned(
-          top: _difference,
+          // top: _difference,
           left: 0,
           child: Container(
             color: Colors.transparent,
