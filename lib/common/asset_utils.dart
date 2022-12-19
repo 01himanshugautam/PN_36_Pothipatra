@@ -4,6 +4,8 @@ class AssetUtilities {
   //static String logo = '${imagesRoot}logo.png';
   static String logo = '${imagesRoot}logo.jpg';
   static String logoWhite = '${imagesRoot}logo_white.png';
+  static String logoFinal = '${imagesRoot}final_logo.jpeg';
+  static String logoName = '${imagesRoot}logo_name.jpeg';
   static String facebook = '${imagesRoot}facebook.png';
   static String google = '${imagesRoot}google.png';
   static String defaultImage = '${imagesRoot}feed_image.jpg';

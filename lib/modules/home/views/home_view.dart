@@ -8,7 +8,6 @@ import 'package:pothipatra/modules/global_widgets/sizes_box.dart';
 import 'package:pothipatra/modules/home/controller/home_controller.dart';
 import 'package:pothipatra/modules/home/widget/news_list_widget.dart';
 import 'package:pothipatra/routes/theme_app_pages.dart';
-
 import '../widget/slider_widget.dart';
 
 class HomeView extends GetView<HomeController> {

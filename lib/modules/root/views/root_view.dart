@@ -1,7 +1,11 @@
+import 'dart:developer';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:pothipatra/common/no_internet_screen.dart';
 import 'package:pothipatra/modules/home/widget/filter_bottom-sheet.dart';
 import 'package:pothipatra/routes/theme_app_pages.dart';
 
@@ -32,14 +36,16 @@ class RootView extends GetView<RootController> {
                 Get.isDarkMode ? AssetUtilities.logoWhite : AssetUtilities.logo,
                 width: 100,
               ),
-              /*wSizedBox2,
-                Text(controller.title.value,
-                    style: FontStyleUtilities.f18(
-                      fontColor: Get.isDarkMode
-                          ? ColorUtilities.colorWhite
-                          : ColorUtilities.colorBlack,
-                      fontWeight: FWT.semiBold,
-                    ))*/
+              // wSizedBox2,
+              // Text(
+              //   Get.find<InternetConnectionService>().result.toString(),
+              //   style: FontStyleUtilities.f18(
+              //     fontColor: Get.isDarkMode
+              //         ? ColorUtilities.colorWhite
+              //         : ColorUtilities.colorBlack,
+              //     fontWeight: FWT.semiBold,
+              //   ),
+              // )
             ],
           ),
           actions: [
@@ -71,9 +77,18 @@ class RootView extends GetView<RootController> {
             ),
           ],
         ),
-        body: IndexedStack(
-          index: controller.currentIndex.value,
-          children: controller.pages,
+        body: StreamBuilder(
+          stream: Connectivity().onConnectivityChanged.asBroadcastStream(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            log("Connectivity ${snapshot.data}");
+            return snapshot.data == ConnectivityResult.mobile ||
+                    snapshot.data == ConnectivityResult.wifi
+                ? IndexedStack(
+                    index: controller.currentIndex.value,
+                    children: controller.pages,
+                  )
+                : const NoInternetScreen();
+          },
         ),
         resizeToAvoidBottomInset: false,
         bottomNavigationBar:

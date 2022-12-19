@@ -19,13 +19,14 @@ void initServices() async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   OneSignalService().OneSignalSService();
-  await Get.putAsync(() => FirebaseProvider().init());
 
+  await Get.putAsync(() => FirebaseProvider().init());
   await GetStorage.init();
   await Get.putAsync(() => SettingsService().init());
   await Get.putAsync(() => GlobalService().init());
   await Get.putAsync(() => AuthService().init());
   await Get.putAsync(() => NodeApiClient().init());
+
   runApp(
     GetMaterialApp(
       title: "Pothipatra",

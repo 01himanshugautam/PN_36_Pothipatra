@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:pothipatra/common/auth_popup.dart';
 import 'package:pothipatra/models/news_model.dart';
 import 'package:pothipatra/modules/global_widgets/ui.dart';
-import 'package:pothipatra/modules/news/widgets/ads_item_widget.dart';
 import 'package:pothipatra/modules/news/widgets/news_item_widget.dart';
 import 'package:pothipatra/repositories/category_repository.dart';
 import 'package:pothipatra/services/auth_service.dart';
@@ -15,7 +14,6 @@ class NewsController extends GetxController
   AppinioSwiperController swipeController = AppinioSwiperController();
 
   RxList<NewsItemWidget> newsItemListWidget = <NewsItemWidget>[].obs;
-  RxList<AdsItemWidget> adsItemListWidget = <AdsItemWidget>[].obs;
   RxList<News> news = <News>[].obs;
 
   final isLoading = false.obs;

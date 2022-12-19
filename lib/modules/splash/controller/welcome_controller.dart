@@ -10,19 +10,16 @@ class WelcomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    Timer(
-      const Duration(seconds: 3),
-      () {
-        if (!Get.find<AuthService>().isAuth) {
-          Get.offAndToNamed(
-            Routes.root,
-          );
-        } else {
-          Get.offAndToNamed(
-            Routes.root,
-          );
-        }
-      },
-    );
+    Timer(const Duration(seconds: 3), () {
+      if (!Get.find<AuthService>().isAuth) {
+        Get.offAndToNamed(
+          Routes.root,
+        );
+      } else {
+        Get.offAndToNamed(
+          Routes.root,
+        );
+      }
+    });
   }
 }

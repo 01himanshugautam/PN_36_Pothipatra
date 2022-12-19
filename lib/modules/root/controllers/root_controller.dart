@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:pothipatra/modules/bookmark/controller/bookmark_controller.dart';
 import 'package:pothipatra/modules/bookmark/views/bookmark_view.dart';
 import 'package:pothipatra/modules/home/controller/home_controller.dart';
@@ -34,10 +35,8 @@ class RootController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    // TODO: implement onInit
     await Get.find<AuthService>().checkUserLogin();
     await Get.find<AuthService>().getCurrentUser();
-
     super.onInit();
   }
 

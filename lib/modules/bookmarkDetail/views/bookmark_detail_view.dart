@@ -1,6 +1,7 @@
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:pothipatra/common/string_extension.dart';
 import 'package:pothipatra/services/auth_service.dart';
 
 import '../../../common/asset_utils.dart';
@@ -69,7 +70,8 @@ class BookMarkDetailView extends GetView<BookMarkDetailController> {
                                               width: 1)),
                                       child: Text(
                                         controller.news.value.category![0].name
-                                            .toString(),
+                                            .toString()
+                                            .toTitleCase(),
                                         style: FontStyleUtilities.f13(
                                             fontColor:
                                                 ColorUtilities.colorPrimary,
@@ -165,7 +167,7 @@ class BookMarkDetailView extends GetView<BookMarkDetailController> {
                                 child: HtmlWidget(
                                   controller.news.value.post!.postTitle
                                       .toString(),
-                                  textStyle: TextStyle(
+                                  textStyle: const TextStyle(
                                       height: 2,
                                       fontFamily: "Poppins",
                                       fontSize: 16),

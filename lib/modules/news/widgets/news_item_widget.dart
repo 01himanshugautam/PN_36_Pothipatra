@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,7 +16,8 @@ import '../../../common/asset_utils.dart';
 // ignore: must_be_immutable
 class NewsItemWidget extends GetView<NewsController> {
   News? news;
-  NewsItemWidget({super.key, this.news});
+  ConnectivityResult? networkStatus;
+  NewsItemWidget({super.key, this.news, this.networkStatus});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +55,8 @@ class NewsItemWidget extends GetView<NewsController> {
                   ),
                   Expanded(
                     child: Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      height: Get.height / 2.5,
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,6 +74,7 @@ class NewsItemWidget extends GetView<NewsController> {
                           Text(
                             news!.postData!.postExcerpt.toString(),
                             textAlign: TextAlign.justify,
+                            // maxLines: 8,
                             style: const TextStyle(
                               // overflow: TextOverflow.ellipsis,
                               height: 1.8,
