@@ -42,8 +42,8 @@ class ProfileController extends GetxController {
 
   void initThemeMode() {
     if (box != null) {
-      String? _themeMode = box!.read<String>('theme_mode');
-      switch (_themeMode) {
+      String? themeMode = box!.read<String>('theme_mode');
+      switch (themeMode) {
         case 'ThemeMode.light':
           selectedThemeMode.value = ThemeMode.light;
           break;
@@ -80,14 +80,14 @@ class ProfileController extends GetxController {
     box!.write('theme_mode', themeMode.toString());
     Get.rootController.refresh();
   }
+
   Future getPages(id) async {
     try {
       isLoading.value = false;
       pages.value = await categoryRepository!.getPages(id);
       isLoading.value = true;
-
     } catch (e) {
-      Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
+      // Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
     } finally {
       isLoading.value = true;
     }

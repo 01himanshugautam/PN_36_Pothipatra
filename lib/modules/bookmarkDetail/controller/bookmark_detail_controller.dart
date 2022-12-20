@@ -20,13 +20,12 @@ class BookMarkDetailController extends GetxController {
   BookMarkDetailController() {
     categoryRepository = CategoryRepository();
     box = GetStorage();
-
   }
   Future refreshDetail({bool showMessage = false}) async {
     await getNewsDetails();
-   // await getCategory();
-
+    // await getCategory();
   }
+
   @override
   Future<void> onInit() async {
     await refreshDetail();
@@ -38,25 +37,26 @@ class BookMarkDetailController extends GetxController {
     try {
       isLoading.value = false;
       Map data = {
-        "postid":box!.read("postid"),
+        "postid": box!.read("postid"),
       };
       news.value = await categoryRepository!.getNewDetail(data);
       isLoading.value = true;
-
     } catch (e) {
-      Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
+      // Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
     } finally {
       isLoading.value = true;
     }
   }
+
   Future getCategory() async {
     try {
       isLoading.value = true;
       categoriesall.assignAll(await categoryRepository!.getCategory());
     } catch (e) {
-      Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
+      // Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
     }
   }
+
   Future<Map> likeNews(id) async {
     try {
       Map data = {
@@ -68,7 +68,7 @@ class BookMarkDetailController extends GetxController {
       return responseData;
     } catch (e) {
       isLoading.value = true;
-      Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
+      // Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
       Map data = {"status": "false"};
       return data;
     }

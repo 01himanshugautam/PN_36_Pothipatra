@@ -162,8 +162,17 @@ class NewsItemWidget extends GetView<NewsController> {
                                   : SvgPicture.asset(AssetUtilities.bookmark,
                                       height: 16,
                                       width: 16,
-                                      color: ColorUtilities.colorPrimary))
-
+                                      color: ColorUtilities.colorPrimary)),
+                          wSizedBox3,
+                          Text(
+                            'Swipe left for more details',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Get.isDarkMode
+                                  ? ColorUtilities.colorWhite.withOpacity(.3)
+                                  : ColorUtilities.colorBlack.withOpacity(.3),
+                            ),
+                          ),
                           // Text(news!.numberOfLikes.toString()),
                           // wSizedBox1,
                           // Container(
@@ -191,7 +200,8 @@ class NewsItemWidget extends GetView<NewsController> {
           )
         : GestureDetector(
             onTap: () async => await launchUrl(
-                Uri.parse(news!.ads!.postData!.guid.toString())),
+                Uri.parse(news!.ads!.postData!.guid.toString()),
+                mode: LaunchMode.externalApplication),
             child: Container(
               height: Get.height,
               decoration: BoxDecoration(

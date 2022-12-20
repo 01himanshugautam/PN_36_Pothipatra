@@ -32,7 +32,7 @@ dependencies:
   connectivity_plus: ^3.0.2
 
 icons_launcher:
-  image_path: "assets/images/png/final_logo.jpeg"
+  image_path: "assets/images/png/final_logo.png"
   platforms:
     android:
       enable: true

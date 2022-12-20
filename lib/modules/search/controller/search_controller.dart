@@ -45,10 +45,9 @@ class SearchController extends GetxController {
       isLoading.value = true;
       searchedNews
           .assignAll(await categoryRepository!.getSearchedNews(searchText));
-     
     } catch (e) {
       isLoading.value = true;
-      Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
+      // Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
     }
   }
 
@@ -60,7 +59,7 @@ class SearchController extends GetxController {
       isLoading.value = true;
       filterNews.assignAll(await categoryRepository!.getFilterNews(data));
     } catch (e) {
-      Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
+      // Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
     }
   }
 
@@ -76,7 +75,7 @@ class SearchController extends GetxController {
       // await getCategory();
     } catch (e) {
       isLoading.value = true;
-      Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
+      // Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
       Map data = {"status": "false"};
       return data;
     }
@@ -95,7 +94,7 @@ class SearchController extends GetxController {
       //print(news);
 
     } catch (e) {
-      Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
+      // Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
       Map response = {"status": "false"};
       return response;
     }

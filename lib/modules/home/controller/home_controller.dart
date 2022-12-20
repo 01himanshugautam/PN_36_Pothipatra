@@ -7,7 +7,6 @@ import 'package:pothipatra/models/news_model.dart';
 import 'package:pothipatra/models/place_model.dart';
 import 'package:pothipatra/models/responce_model.dart';
 import 'package:pothipatra/models/state_model.dart';
-import 'package:pothipatra/modules/global_widgets/ui.dart';
 import 'package:pothipatra/repositories/category_repository.dart';
 import 'package:pothipatra/services/auth_service.dart';
 
@@ -61,7 +60,7 @@ class HomeController extends GetxController {
       categories.assignAll(await categoryRepository!.getCategory());
       await getNews(categories[0].termId.toString());
     } catch (e) {
-      Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
+      // Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
     }
   }
 
@@ -78,7 +77,7 @@ class HomeController extends GetxController {
       isLoading.value = true;
     } catch (e) {
       isLoading.value = true;
-      Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
+      // Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
     }
   }
 
@@ -89,7 +88,7 @@ class HomeController extends GetxController {
       places.assignAll(await categoryRepository!.getPlaces(categoryID));
       place = places[0];
     } catch (e) {
-      Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
+      // Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
     }
   }
 
@@ -105,7 +104,7 @@ class HomeController extends GetxController {
       // await getCategory();
     } catch (e) {
       isLoading.value = true;
-      Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
+      // Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
       Map data = {"status": "false"};
       return data;
     }
@@ -124,7 +123,7 @@ class HomeController extends GetxController {
       //print(news);
 
     } catch (e) {
-      Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
+      // Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
       Map response = {"status": "false"};
       return response;
     }
@@ -137,7 +136,7 @@ class HomeController extends GetxController {
       // citys("1");
 
     } catch (e) {
-      Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
+      // Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
     }
   }
 
@@ -148,7 +147,7 @@ class HomeController extends GetxController {
       //print(news);
 
     } catch (e) {
-      Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
+      // Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
     }
   }
 

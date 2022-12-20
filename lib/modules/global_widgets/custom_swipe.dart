@@ -442,8 +442,10 @@ class _CustomSwipeState extends State<CustomSwipe>
     _horizontal = true;
 
     if (detectedDirection == AppinioSwiperDirection.left) {
-      launchUrl(Uri.parse(
-          newsController!.news[indexValue].postData!.guid.toString()));
+      launchUrl(
+        Uri.parse(newsController!.news[indexValue].postData!.guid.toString()),
+        mode: LaunchMode.externalApplication,
+      );
     } else if (detectedDirection == AppinioSwiperDirection.right) {
       final BottomNavigationBar navigationBar =
           globalKey.currentWidget as BottomNavigationBar;

@@ -48,7 +48,7 @@ class AuthController extends GetxController {
       Get.offAllNamed(Routes.root);
     } catch (e) {
       loading.value = false;
-      Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
+      // Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
     } finally {
       loading.value = false;
     }

@@ -19,7 +19,9 @@ class NoInternetScreen extends StatelessWidget {
           Text(
             "No Internet connection!",
             style: FontStyleUtilities.f18(
-                fontColor: ColorUtilities.backgroundColor,
+                fontColor: Get.isDarkMode
+                    ? ColorUtilities.colorWhite
+                    : ColorUtilities.colorBlack,
                 fontWeight: FWT.regular),
             textAlign: TextAlign.center,
           ),

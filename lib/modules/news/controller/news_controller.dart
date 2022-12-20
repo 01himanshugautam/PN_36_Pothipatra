@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pothipatra/common/auth_popup.dart';
 import 'package:pothipatra/models/news_model.dart';
-import 'package:pothipatra/modules/global_widgets/ui.dart';
 import 'package:pothipatra/modules/news/widgets/news_item_widget.dart';
 import 'package:pothipatra/repositories/category_repository.dart';
 import 'package:pothipatra/services/auth_service.dart';
@@ -57,7 +56,7 @@ class NewsController extends GetxController
       //newsItemListWidget.value = newsItemListWidget;
     } catch (e) {
       isLoading.value = true;
-      Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
+      // Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
     }
   }
 
@@ -73,7 +72,7 @@ class NewsController extends GetxController
       return response;
     } catch (e) {
       isLoading.value = true;
-      Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
+      // Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
       Map response = {"status": "false"};
       return response;
     }
@@ -90,7 +89,7 @@ class NewsController extends GetxController
       Map response = await categoryRepository!.bookmarkNews(data);
       return response;
     } catch (e) {
-      Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
+      // Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
       Map response = {"status": "false"};
       return response;
     }

@@ -48,7 +48,7 @@ class BookMarkController extends GetxController {
         await getBookMarkNews(bookMarkCategories[0].termId.toString());
       }
     } catch (e) {
-      Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
+     // Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
     }
   }*/
 
@@ -75,7 +75,7 @@ class BookMarkController extends GetxController {
       // await getCategory();
     } catch (e) {
       isLoading.value = true;
-      Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
+      // Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
       Map data = {"status": "false"};
       return data;
     }
@@ -94,7 +94,7 @@ class BookMarkController extends GetxController {
       //print(news);
 
     } catch (e) {
-      Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
+      // Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
       Map response = {"status": "false"};
       return response;
     }
