@@ -1,4 +1,3 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,8 +15,8 @@ import '../../../common/asset_utils.dart';
 // ignore: must_be_immutable
 class NewsItemWidget extends GetView<NewsController> {
   News? news;
-  ConnectivityResult? networkStatus;
-  NewsItemWidget({super.key, this.news, this.networkStatus});
+
+  NewsItemWidget({super.key, this.news});
 
   @override
   Widget build(BuildContext context) {

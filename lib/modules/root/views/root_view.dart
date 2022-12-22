@@ -82,7 +82,8 @@ class RootView extends GetView<RootController> {
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             log("Connectivity ${snapshot.data}");
             return snapshot.data == ConnectivityResult.mobile ||
-                    snapshot.data == ConnectivityResult.wifi
+                    snapshot.data == ConnectivityResult.wifi ||
+                    snapshot.data == null
                 ? IndexedStack(
                     index: controller.currentIndex.value,
                     children: controller.pages,

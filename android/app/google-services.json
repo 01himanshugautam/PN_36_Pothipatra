@@ -14,6 +14,38 @@
       },
       "oauth_client": [
         {
+          "client_id": "1017735333317-5ff9mqq0qusidbesiq7qnu29p817disq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.pothipatra",
+            "certificate_hash": "11e7d3a41e39b37b2b8576baf0b14f53070bab6e"
+          }
+        },
+        {
+          "client_id": "1017735333317-og7guqm49sqhad6j5q03dhn6mbi504n4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.pothipatra",
+            "certificate_hash": "b30f91fc6d512eabbaf3d7e92b557ee5ede39aa8"
+          }
+        },
+        {
+          "client_id": "1017735333317-qbr2tuddndtg9qk5e31p0ncdg40ou0pu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.pothipatra",
+            "certificate_hash": "6f7d606a21b903a5b0a5f7dff31f0c54d6c9b3df"
+          }
+        },
+        {
+          "client_id": "1017735333317-vb8jh26vg2bfrj5g5glbtejmcanh17u5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.pothipatra",
+            "certificate_hash": "adf9f6f4d29ab469783414bae76bdf7e22cebedf"
+          }
+        },
+        {
           "client_id": "1017735333317-mac2e2ih44o9llbsvna8r5o339iq5t5c.apps.googleusercontent.com",
           "client_type": 3
         }

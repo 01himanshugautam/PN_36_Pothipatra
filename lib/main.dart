@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:pothipatra/common/onesignal_service.dart';
@@ -18,6 +19,7 @@ void initServices() async {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   OneSignalService().OneSignalSService();
 
   await Get.putAsync(() => FirebaseProvider().init());

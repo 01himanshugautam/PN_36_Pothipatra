@@ -3,11 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:pothipatra/modules/global_widgets/ui.dart';
 import 'package:pothipatra/repositories/user_repository.dart';
 import 'package:pothipatra/routes/theme_app_pages.dart';
-
-import '../../../models/user_model.dart';
 
 class AuthController extends GetxController {
   late GlobalKey<FormState> loginFormKey;
@@ -44,8 +41,9 @@ class AuthController extends GetxController {
       loading.value = true;
       await userRepository!.socialLogin(data);
       loading.value = false;
+
       //Get.showSnackbar(Ui.successSnackBar(message: "Login Successfully"));
-      Get.offAllNamed(Routes.root);
+      await Get.offAllNamed(Routes.root);
     } catch (e) {
       loading.value = false;
       // Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
@@ -60,12 +58,10 @@ class AuthController extends GetxController {
         await googleSignIn.signIn();
     final GoogleSignInAuthentication googleSignInAuthentication =
         await googleSignInAccount!.authentication;
-
     final AuthCredential credential = GoogleAuthProvider.credential(
       accessToken: googleSignInAuthentication.accessToken,
       idToken: googleSignInAuthentication.idToken,
     );
-
     final UserCredential authResult =
         await _auth.signInWithCredential(credential);
     final User? user = authResult.user;
