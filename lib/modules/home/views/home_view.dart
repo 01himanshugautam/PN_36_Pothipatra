@@ -19,6 +19,7 @@ class HomeView extends GetView<HomeController> {
     return Obx(() {
       return Scaffold(
         body: SingleChildScrollView(
+          controller: controller.scrollController,
           child: Column(
             children: [
               hSizedBox1,
@@ -96,7 +97,10 @@ class HomeView extends GetView<HomeController> {
                               Category category = controller.categories[index];
                               return InkWell(onTap: () {
                                 controller.index.value = index;
-                                controller.getNews(category.termId.toString());
+                                controller.categoryId =
+                                    category.termId.toString();
+                                controller.getNews(
+                                    categoryID: category.termId.toString());
                               }, child: Obx(() {
                                 return Container(
                                   margin: const EdgeInsets.only(right: 10.0),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:pothipatra/common/color_utils.dart';
 
 import '../modules/global_widgets/font_style_util.dart';
@@ -54,13 +55,17 @@ class CustomButton extends StatelessWidget {
               style: buttonSize == ButtonSize.small
                   ? FontStyleUtilities.f16(
                       fontColor: isFlatButton
-                          ? Colors.white
+                          ? (!Get.isDarkMode
+                              ? ColorUtilities.colorWhite
+                              : ColorUtilities.colorBlack)
                           : ColorUtilities.colorAccent,
                       fontWeight: FWT.semiBold,
                     )
                   : FontStyleUtilities.f15(
                       fontColor: isFlatButton
-                          ? Colors.white
+                          ? (!Get.isDarkMode
+                              ? ColorUtilities.colorWhite
+                              : ColorUtilities.colorBlack)
                           : ColorUtilities.colorAccent,
                       fontWeight: FWT.semiBold,
                     ),

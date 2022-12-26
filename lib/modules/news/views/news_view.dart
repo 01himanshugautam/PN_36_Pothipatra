@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pothipatra/modules/global_widgets/custom_swipe.dart';
@@ -9,6 +11,7 @@ class NewsView extends GetView<NewsController> {
   @override
   Widget build(BuildContext context) {
     context.theme;
+
     return CupertinoPageScaffold(
         child: Stack(
       children: [
@@ -18,6 +21,11 @@ class NewsView extends GetView<NewsController> {
           controller: controller.swipeController,
           cards: controller.newsItemListWidget,
           padding: const EdgeInsets.all(20),
+          nextPage: () {
+            controller.initialPage = controller.initialPage + 1;
+            log("Next page ${controller.initialPage}");
+            controller.refreshNews(page: controller.initialPage);
+          },
         )
       ],
     ));

@@ -1,7 +1,5 @@
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
-import 'package:pothipatra/common/asset_utils.dart';
-import 'package:pothipatra/modules/global_widgets/font_style_util.dart';
 import 'package:pothipatra/modules/global_widgets/sizes_box.dart';
 import 'package:pothipatra/modules/profile/controller/profile_controller.dart';
 import 'package:flutter/material.dart';
@@ -30,19 +28,19 @@ class AboutView extends GetView<ProfileController> {
             ),
             elevation: 0,
           ),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: controller.isLoading.isFalse
-                  ? const Center(child: CircularProgressIndicator())
-                  : Column(
+          body: controller.isLoading.isFalse
+              ? const Center(child: CircularProgressIndicator())
+              : SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         hSizedBox1,
                         HtmlWidget(
                           controller.pages.value.content!.rendered.toString(),
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                               height: 2,
                               fontFamily: "Poppins",
                               fontWeight: FontWeight.w400,
@@ -100,8 +98,8 @@ class AboutView extends GetView<ProfileController> {
                   )*/
                       ],
                     ),
-            ),
-          ));
+                  ),
+                ));
     });
   }
 }

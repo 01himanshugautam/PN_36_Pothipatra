@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pothipatra/common/auth_popup.dart';
@@ -14,6 +16,7 @@ class NewsController extends GetxController
 
   RxList<NewsItemWidget> newsItemListWidget = <NewsItemWidget>[].obs;
   RxList<News> news = <News>[].obs;
+  int initialPage = 1;
 
   final isLoading = false.obs;
   CategoryRepository? categoryRepository;
@@ -22,8 +25,8 @@ class NewsController extends GetxController
     categoryRepository = CategoryRepository();
   }
 
-  Future refreshNews({bool showMessage = false}) async {
-    await getNews();
+  Future refreshNews({bool showMessage = false, int page = 1}) async {
+    await getNews(page: page);
   }
 
   @override
@@ -34,28 +37,25 @@ class NewsController extends GetxController
     super.onInit();
   }
 
-  Future getNews() async {
+  Future getNews({int page = 1}) async {
+    Map data = {
+      "user_id": Get.find<AuthService>().user.value.userId.toString(),
+      "page_id": page.toString(),
+      "term_id": "",
+    };
     try {
-      Map data = {
-        "user_id": Get.find<AuthService>().user.value.userId.toString(),
-        "term_id": "",
-      };
-      //  isLoading.value = false;
-
-      news.assignAll(await categoryRepository!.getNews(data));
-
       isLoading.value = true;
+      news.assignAll(await categoryRepository!.getNews(data));
+      isLoading.value = false;
+      log("News length: ${news.length}");
       for (var element in news) {
         newsItemListWidget.add(NewsItemWidget(
           news: element,
         ));
       }
-
       refresh();
-
-      //newsItemListWidget.value = newsItemListWidget;
     } catch (e) {
-      isLoading.value = true;
+      isLoading.value = false;
       // Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
     }
   }

@@ -17,9 +17,7 @@ class ProfileView extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
-
     context.theme;
-    // TODO: implement build
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -74,10 +72,12 @@ class ProfileView extends GetView<ProfileController> {
                       title: "Login",
                       height: 60,
                       isFlatButton: true,
-                      buttonColor: ColorUtilities.colorBlack,
+                      buttonColor: Get.isDarkMode
+                          ? ColorUtilities.colorWhite
+                          : ColorUtilities.colorBlack,
                       width: (screenSize.width / 2) - 50,
                       onButtonTap: () async {
-                        Get.offAllNamed(Routes.login);
+                        Get.toNamed(Routes.login);
                       },
                     ),
 

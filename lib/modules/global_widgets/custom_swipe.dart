@@ -47,6 +47,8 @@ class CustomSwipe extends StatefulWidget {
   /// function that gets called with the boolean true when the last card gets unswiped and with the boolean false when there is no card to unswipe
   final Function unswipe;
 
+  final Function nextPage;
+
   /// direction in which the card gets swiped when triggered by controller, default set to right
   final AppinioSwiperDirection direction;
 
@@ -63,6 +65,7 @@ class CustomSwipe extends StatefulWidget {
     this.unlimitedUnswipe = false,
     this.onTapDisabled = emptyFunction,
     this.onEnd = emptyFunction,
+    this.nextPage = emptyFunction,
     this.unswipe = emptyFunctionBool,
     this.direction = AppinioSwiperDirection.right,
   })  : assert(maxAngle >= 0 && maxAngle <= 360),
@@ -119,16 +122,17 @@ class _CustomSwipeState extends State<CustomSwipe>
             if (widget.cards!.isNotEmpty) {
               switch (widget.direction) {
                 case AppinioSwiperDirection.right:
-                  print("sipe");
+                  debugPrint("swipe");
 
                   _swipeHorizontal(context);
                   break;
                 case AppinioSwiperDirection.left:
-                  print("sipe");
+                  debugPrint("swipe");
 
                   _swipeHorizontal(context);
                   break;
                 case AppinioSwiperDirection.top:
+                  debugPrint("Swipe Up");
                   _swipeVertical(context);
                   break;
                 case AppinioSwiperDirection.bottom:
@@ -146,7 +150,7 @@ class _CustomSwipeState extends State<CustomSwipe>
           if (widget.controller!.state == AppinioSwiperState.swipeLeft) {
             if (widget.cards!.isNotEmpty) {
               _left = -1;
-              print("sipe");
+              debugPrint("swipe");
 
               _swipeHorizontal(context);
               _animationController.forward();
@@ -158,7 +162,7 @@ class _CustomSwipeState extends State<CustomSwipe>
           if (widget.controller!.state == AppinioSwiperState.swipeRight) {
             if (widget.cards!.isNotEmpty) {
               _left = widget.threshold + 1;
-              print("sipe");
+              debugPrint("swipe");
               _swipeHorizontal(context);
               _animationController.forward();
             }
@@ -494,8 +498,12 @@ class _CustomSwipeState extends State<CustomSwipe>
     _vertical = true;
 
     if (detectedDirection == AppinioSwiperDirection.top) {
-      if (indexValue != widget.cards!.length - 1) {
+      // debugPrint("Swipe Top direction $indexValue ${widget.cards!.length}");
+
+      if (indexValue != widget.cards!.length - 4) {
         indexValue++;
+      } else {
+        widget.nextPage();
       }
     } else if (detectedDirection == AppinioSwiperDirection.bottom) {
       if (indexValue != 0) {
@@ -600,7 +608,7 @@ class AppinioSwiperController extends ChangeNotifier {
 
   //swipe the card to the left side by changing the status of the controller
   void swipeLeft() {
-    print("sipe");
+    debugPrint("swipe");
 
     state = AppinioSwiperState.swipeLeft;
     notifyListeners();
@@ -609,7 +617,7 @@ class AppinioSwiperController extends ChangeNotifier {
   //swipe the card to the right side by changing the status of the controller
   void swipeRight() {
     state = AppinioSwiperState.swipeRight;
-    print("sipe");
+    debugPrint("swipe");
 
     notifyListeners();
   }

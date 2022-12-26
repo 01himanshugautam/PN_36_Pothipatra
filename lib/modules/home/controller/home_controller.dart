@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -7,6 +9,7 @@ import 'package:pothipatra/models/news_model.dart';
 import 'package:pothipatra/models/place_model.dart';
 import 'package:pothipatra/models/responce_model.dart';
 import 'package:pothipatra/models/state_model.dart';
+import 'package:pothipatra/modules/global_widgets/ui.dart';
 import 'package:pothipatra/repositories/category_repository.dart';
 import 'package:pothipatra/services/auth_service.dart';
 
@@ -31,6 +34,9 @@ class HomeController extends GetxController {
   City? filterCity;
   PlaceModel? place;
   GetStorage? box;
+  int initialPage = 1;
+  String? categoryId;
+  bool pageLoading = false;
 
   final responce = <ResponceModal>[].obs;
 
@@ -38,7 +44,7 @@ class HomeController extends GetxController {
     categoryRepository = CategoryRepository();
     box = GetStorage();
   }
-
+  ScrollController? scrollController;
   Future refreshHome({bool showMessage = false}) async {
     await getCategory();
     await states();
@@ -49,8 +55,34 @@ class HomeController extends GetxController {
     await Get.find<AuthService>().checkUserLogin();
     await Get.find<AuthService>().getCurrentUser();
     await refreshHome();
+    scrollController = ScrollController()..addListener(_myScrollListener);
+    categoryId = categories[0].termId.toString();
+    // scrollController!.addListener(_myScrollListener);
     super.onInit();
     //getHomeList();
+  }
+
+  _myScrollListener() async {
+    if (scrollController!.position.maxScrollExtent ==
+        scrollController!.offset) {
+      pageLoading = true;
+
+      initialPage = initialPage + 1;
+      Map data = {
+        "user_id": Get.find<AuthService>().user.value.userId.toString(),
+        "term_id": categoryId,
+        "page_id": initialPage.toString(),
+      };
+      pageLoading = true;
+      try {
+        news.addAll(await categoryRepository!.getNews(data));
+      } catch (e) {
+        // isLoading.value = true;
+        Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
+      }
+      pageLoading = false;
+      log("Next Page Called... $pageLoading");
+    }
   }
 
   Future getCategory() async {
@@ -58,18 +90,19 @@ class HomeController extends GetxController {
     filterCategories.clear();
     try {
       categories.assignAll(await categoryRepository!.getCategory());
-      await getNews(categories[0].termId.toString());
+      await getNews(categoryID: categories[0].termId.toString());
     } catch (e) {
       // Get.showSnackbar(Ui.errorSnackBar(message: e.toString()));
     }
   }
 
-  Future getNews(String categoryID) async {
+  Future getNews({required String categoryID, int page = 1}) async {
     //catId.value = categoryID;
     news.clear();
     Map data = {
       "user_id": Get.find<AuthService>().user.value.userId.toString(),
       "term_id": categoryID,
+      "page_id": page.toString(),
     };
     try {
       isLoading.value = false;

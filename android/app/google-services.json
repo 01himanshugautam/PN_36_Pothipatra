@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "1017735333317-fj6nrhn9r40e6lqoa04a5nv8bt1k18gr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.pothipatra",
+            "certificate_hash": "8610bd48e3127977ebc98ccf1c84937cc89f8125"
+          }
+        },
+        {
           "client_id": "1017735333317-og7guqm49sqhad6j5q03dhn6mbi504n4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

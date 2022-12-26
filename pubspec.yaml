@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+4
+version: 1.0.0+5
 
 environment:
   sdk: ">=2.18.1 <3.0.0"
@@ -30,6 +30,7 @@ dependencies:
   onesignal_flutter: ^3.5.0
   icons_launcher: ^2.0.6
   connectivity_plus: ^3.0.2
+  pagination_view: ^2.0.0
 
 icons_launcher:
   image_path: "assets/images/png/final_logo.png"

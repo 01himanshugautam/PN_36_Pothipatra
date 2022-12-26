@@ -29,6 +29,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.10"
+  bloc:
+    dependency: transitive
+    description:
+      name: bloc
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "7.2.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -209,6 +216,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_bloc:
+    dependency: transitive
+    description:
+      name: flutter_bloc
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "7.3.3"
   flutter_blurhash:
     dependency: transitive
     description:
@@ -534,6 +548,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.5.0"
+  pagination_view:
+    dependency: "direct main"
+    description:
+      name: pagination_view
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   path:
     dependency: transitive
     description:

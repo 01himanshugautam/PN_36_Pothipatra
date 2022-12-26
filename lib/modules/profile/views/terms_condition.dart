@@ -4,7 +4,6 @@ import 'package:pothipatra/modules/profile/controller/profile_controller.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/color_utils.dart';
-import '../../global_widgets/font_style_util.dart';
 
 class TermsCondition extends GetView<ProfileController> {
   const TermsCondition({super.key});
@@ -30,21 +29,21 @@ class TermsCondition extends GetView<ProfileController> {
           ),
           elevation: 0,
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: controller.isLoading.isFalse
-                ? const Center(child: CircularProgressIndicator())
-                : HtmlWidget(
+        body: controller.isLoading.isFalse
+            ? const Center(child: CircularProgressIndicator())
+            : SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: HtmlWidget(
                     controller.pages.value.content!.rendered.toString(),
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                         height: 2,
                         fontFamily: "Poppins",
                         fontWeight: FontWeight.w400,
                         fontSize: 14),
                   ),
-          ),
-        ),
+                ),
+              ),
       );
     });
   }

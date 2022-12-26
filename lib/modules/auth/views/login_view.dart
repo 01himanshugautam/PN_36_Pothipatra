@@ -5,7 +5,6 @@ import 'package:pothipatra/modules/auth/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:pothipatra/modules/global_widgets/font_style_util.dart';
 import 'package:pothipatra/modules/global_widgets/sizes_box.dart';
-import '../../../common/helper.dart';
 
 class LoginView extends GetView<AuthController> {
   const LoginView({super.key});
@@ -14,40 +13,42 @@ class LoginView extends GetView<AuthController> {
   Widget build(BuildContext context) {
     context.theme;
     controller.loginFormKey = GlobalKey<FormState>();
-    return WillPopScope(
-        onWillPop: Helper().onWillPop,
-        child: Scaffold(
-          body: Form(
-            key: controller.loginFormKey,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    hSizedBox5,
-                    Text(
-                      "Welcome to Pothipatra",
-                      style: FontStyleUtilities.f24(
-                          fontColor: ColorUtilities.colorBlack,
-                          fontWeight: FWT.semiBold),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            Get.isDarkMode
-                                ? AssetUtilities.logoWhite
-                                : AssetUtilities.logo,
-                            width: 200,
-                            height: 200,
-                          ),
+    return
+        // WillPopScope(
+        //     onWillPop: Helper().onWillPop,
+        //     child:
+        Scaffold(
+      body: Form(
+        key: controller.loginFormKey,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                hSizedBox5,
+                Text(
+                  "Welcome to Pothipatra",
+                  style: FontStyleUtilities.f24(
+                      fontColor: ColorUtilities.colorBlack,
+                      fontWeight: FWT.semiBold),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        Get.isDarkMode
+                            ? AssetUtilities.logoWhite
+                            : AssetUtilities.logo,
+                        width: 200,
+                        height: 200,
+                      ),
 
-                          /* hSizedBox2,
+                      /* hSizedBox2,
                           TextFieldWidget(
                             hintText: "Enter here",
                             keyboardType: TextInputType.phone,
@@ -113,94 +114,95 @@ class LoginView extends GetView<AuthController> {
                                       ? ColorUtilities.colorWhite
                                       : ColorUtilities.colorBlack,
                                   fontWeight: FWT.medium)),*/
-                        ],
-                      ),
-                    ),
-                    Obx(() {
-                      return controller.loading.isTrue
-                          ? const CircularProgressIndicator()
-                          : Column(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    controller.signInWithFacebook();
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                            width: 1,
-                                            color: Colors.grey.shade300)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            AssetUtilities.facebook,
-                                            width: 32,
-                                          ),
-                                          wSizedBox1,
-                                          Text("Facebook",
-                                              style: FontStyleUtilities.f14(
-                                                fontColor: Get.isDarkMode
-                                                    ? ColorUtilities.colorWhite
-                                                    : ColorUtilities.colorBlack,
-                                                fontWeight: FWT.medium,
-                                              ))
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                hSizedBox2,
-                                InkWell(
-                                  onTap: () {
-                                    controller.signInWithGoogle();
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                            width: 1,
-                                            color: Colors.grey.shade400)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Image.asset(
-                                            AssetUtilities.google,
-                                            width: 32,
-                                          ),
-                                          wSizedBox1,
-                                          Text("Google",
-                                              style: FontStyleUtilities.f14(
-                                                fontColor: Get.isDarkMode
-                                                    ? ColorUtilities.colorWhite
-                                                    : ColorUtilities.colorBlack,
-                                                fontWeight: FWT.medium,
-                                              ))
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            );
-                    }),
-                    hSizedBox2,
-                  ],
+                    ],
+                  ),
                 ),
-              ),
+                Obx(() {
+                  return controller.loading.isTrue
+                      ? const CircularProgressIndicator()
+                      : Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                controller.signInWithFacebook();
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                        width: 1, color: Colors.grey.shade300)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        AssetUtilities.facebook,
+                                        width: 32,
+                                      ),
+                                      wSizedBox1,
+                                      Text(
+                                        "Facebook",
+                                        style: FontStyleUtilities.f14(
+                                          fontColor: Get.isDarkMode
+                                              ? ColorUtilities.colorWhite
+                                              : ColorUtilities.colorBlack,
+                                          fontWeight: FWT.medium,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            hSizedBox2,
+                            InkWell(
+                              onTap: () {
+                                controller.signInWithGoogle();
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                        width: 1, color: Colors.grey.shade400)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Image.asset(
+                                        AssetUtilities.google,
+                                        width: 32,
+                                      ),
+                                      wSizedBox1,
+                                      Text(
+                                        "Google",
+                                        style: FontStyleUtilities.f14(
+                                          fontColor: Get.isDarkMode
+                                              ? ColorUtilities.colorWhite
+                                              : ColorUtilities.colorBlack,
+                                          fontWeight: FWT.medium,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                }),
+                hSizedBox2,
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
+    // )
   }
 }

@@ -14,27 +14,25 @@ class NewsListWidget extends GetView<HomeController> {
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: controller.news.length > 10
-              ? controller.news.length - 10
-              : controller.news.length,
+          itemCount: controller.news.length,
           itemBuilder: (context, index) {
-            print(controller.news.length);
             return InkWell(
               onTap: () {
-                controller.news.length > 10
-                    ? controller.box!.write('postid',
-                        controller.news[index + 10].postData!.id.toString())
-                    : controller.box!.write('postid',
-                        controller.news[index].postData!.id.toString());
+                // controller.news.length > 10
+                //     ? controller.box!.write('postid',
+                //         controller.news[index + 10].postData!.id.toString())
+                //     :
+                controller.box!.write(
+                    'postid', controller.news[index].postData!.id.toString());
                 Get.toNamed(Routes.bookmarkDetail);
               },
-              child: controller.news.length > 10
-                  ? NewsCatItemWidget(
-                      controller.news[index + 10],
-                    )
-                  : NewsCatItemWidget(
-                      controller.news[index],
-                    ),
+              child:
+                  //  controller.news.length > 10
+                  //     ? NewsCatItemWidget(
+                  //         controller.news[index + 10],
+                  //       )
+                  //     :
+                  NewsCatItemWidget(controller.news[index]),
             );
           });
     });

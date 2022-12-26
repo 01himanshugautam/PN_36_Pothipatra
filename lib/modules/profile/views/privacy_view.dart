@@ -30,21 +30,21 @@ class PrivacyView extends GetView<ProfileController> {
           ),
           elevation: 0,
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: controller.isLoading.isFalse
-                ? const Center(child: CircularProgressIndicator())
-                : HtmlWidget(
+        body: controller.isLoading.isFalse
+            ? const Center(child: CircularProgressIndicator())
+            : SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: HtmlWidget(
                     controller.pages.value.content!.rendered.toString(),
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                         height: 2,
                         fontFamily: "Poppins",
                         fontWeight: FontWeight.w400,
                         fontSize: 14),
                   ),
-          ),
-        ),
+                ),
+              ),
       );
     });
   }
