@@ -34,6 +34,9 @@ class BookMarkView extends GetView<BookMarkController> {
                             buttonColor: Get.isDarkMode
                                 ? ColorUtilities.colorWhite
                                 : ColorUtilities.colorBlack,
+                            textColor: !Get.isDarkMode
+                                ? ColorUtilities.colorWhite
+                                : ColorUtilities.colorBlack,
                             width: (screenSize.width / 2) - 50,
                             onButtonTap: () async {
                               Get.toNamed(Routes.login);

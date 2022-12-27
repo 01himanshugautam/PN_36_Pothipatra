@@ -65,6 +65,7 @@ class AuthPopup extends StatelessWidget {
                             height: 60,
                             isFlatButton: true,
                             buttonColor: ColorUtilities.colorBlack,
+                            textColor: ColorUtilities.colorWhite,
                             width: (screenSize.width / 2) - 50,
                             onButtonTap: () async {
                               Get.offAllNamed(Routes.login);
@@ -76,11 +77,11 @@ class AuthPopup extends StatelessWidget {
                             isFlatButton: true,
                             height: 60,
                             buttonColor: Colors.red.shade800,
+                            textColor: ColorUtilities.colorWhite,
                             onButtonTap: () {
                               Get.back();
                             },
                           ),
-
                         ],
                       ),
                     ]),

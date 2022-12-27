@@ -32,6 +32,7 @@ class NoInternetScreen extends StatelessWidget {
             isFlatButton: true,
             height: 50,
             buttonColor: Colors.red.shade800,
+            textColor: ColorUtilities.colorBlack,
             onButtonTap: () {
               Get.offAndToNamed(
                 Routes.splash,

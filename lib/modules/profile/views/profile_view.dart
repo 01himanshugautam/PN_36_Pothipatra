@@ -75,6 +75,9 @@ class ProfileView extends GetView<ProfileController> {
                       buttonColor: Get.isDarkMode
                           ? ColorUtilities.colorWhite
                           : ColorUtilities.colorBlack,
+                      textColor: !Get.isDarkMode
+                          ? ColorUtilities.colorWhite
+                          : ColorUtilities.colorBlack,
                       width: (screenSize.width / 2) - 50,
                       onButtonTap: () async {
                         Get.toNamed(Routes.login);
@@ -179,7 +182,9 @@ class ProfileView extends GetView<ProfileController> {
                         controller.logout();
                       },
                       leading: const Icon(Icons.logout),
-                      title: const Text("Logout"),
+                      title: const Text(
+                        "Logout",
+                      ),
                     )
             ],
           ),

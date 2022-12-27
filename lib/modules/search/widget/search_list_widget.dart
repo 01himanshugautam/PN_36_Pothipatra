@@ -9,7 +9,6 @@ class SearchListWidget extends GetView<SearchController> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Obx(() {
       return ListView.builder(
           shrinkWrap: true,

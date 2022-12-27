@@ -13,11 +13,6 @@ class FeedController extends GetxController {
     getFeedList();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
   getFeedList() {
     feedList.add(FeedItemModel(
         countryname: "Europe",

@@ -67,6 +67,7 @@ class CanclePopup extends GetView<ProfileController> {
                             isFlatButton: true,
                             height: 60,
                             buttonColor: Colors.red.shade800,
+                            textColor: ColorUtilities.colorWhite,
                             onButtonTap: () {
                               Get.back();
                             },
@@ -76,6 +77,7 @@ class CanclePopup extends GetView<ProfileController> {
                             height: 60,
                             isFlatButton: true,
                             buttonColor: ColorUtilities.colorBlack,
+                            textColor: ColorUtilities.colorWhite,
                             width: (screenSize.width / 2) - 50,
                             onButtonTap: () async {
                               Get.back();
