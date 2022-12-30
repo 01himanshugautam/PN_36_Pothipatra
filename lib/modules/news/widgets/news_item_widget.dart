@@ -4,24 +4,30 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:pothipatra/common/color_utils.dart';
+import 'package:pothipatra/common/image_url.dart';
 import 'package:pothipatra/models/news_model.dart';
 import 'package:pothipatra/modules/global_widgets/sizes_box.dart';
 import 'package:pothipatra/modules/news/controller/news_controller.dart';
 import 'package:pothipatra/services/auth_service.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../../../common/asset_utils.dart';
 
 // ignore: must_be_immutable
-class NewsItemWidget extends GetView<NewsController> {
+class NewsItemWidget extends StatefulWidget {
   News? news;
 
   NewsItemWidget({super.key, this.news});
 
   @override
+  State<NewsItemWidget> createState() => _NewsItemWidgetState();
+}
+
+class _NewsItemWidgetState extends State<NewsItemWidget> {
+  final controller = Get.put(NewsController());
+  @override
   Widget build(BuildContext context) {
     context.theme;
-    return news!.ads == null
+    return widget.news!.ads == null
         ? Scaffold(
             body: Container(
               height: Get.height,
@@ -46,7 +52,8 @@ class NewsItemWidget extends GetView<NewsController> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Image.network(
-                      news!.image.toString(),
+                      ImageUrl()
+                          .generateImageUrl(widget.news!.image.toString()),
                       height: 200,
                       width: Get.width,
                       fit: BoxFit.cover,
@@ -62,7 +69,7 @@ class NewsItemWidget extends GetView<NewsController> {
                         children: [
                           hSizedBox1,
                           HtmlWidget(
-                            news!.postData!.postTitle.toString(),
+                            widget.news!.postData!.postTitle.toString(),
                             textStyle: const TextStyle(
                               height: 2,
                               fontFamily: "Poppins",
@@ -71,7 +78,7 @@ class NewsItemWidget extends GetView<NewsController> {
                           ),
                           hSizedBox1,
                           Text(
-                            news!.postData!.postExcerpt.toString(),
+                            widget.news!.postData!.postExcerpt.toString(),
                             textAlign: TextAlign.justify,
                             // maxLines: 8,
                             style: const TextStyle(
@@ -113,18 +120,24 @@ class NewsItemWidget extends GetView<NewsController> {
                               if (!Get.find<AuthService>().isAuth) {
                                 controller.authCheck();
                               } else {
-                                Map data = await controller
-                                    .likeNews(news!.postData!.id.toString());
+                                setState(() {
+                                  widget.news!.like = false;
+                                });
+                                Map data = await controller.likeNews(
+                                    widget.news!.postData!.id.toString());
                                 if (data["like"]["msg"] == "Post Disike!") {
-                                  news!.like = false;
+                                  widget.news!.like = false;
                                   controller.news.refresh();
                                 } else {
-                                  news!.like = true;
+                                  setState(() {
+                                    widget.news!.like = true;
+                                  });
+                                  widget.news!.like = true;
                                   controller.news.refresh();
                                 }
                               }
                             },
-                            child: news!.like == false
+                            child: widget.news!.like == false
                                 ? Icon(
                                     Icons.thumb_up_alt_outlined,
                                     color: ColorUtilities.logoOrangecolor,
@@ -143,17 +156,17 @@ class NewsItemWidget extends GetView<NewsController> {
                                   controller.authCheck();
                                 } else {
                                   Map response = await controller.bookmarkNews(
-                                      news!.postData!.id.toString());
+                                      widget.news!.postData!.id.toString());
                                   if (response["bookmark"]["msg"] ==
                                       "Bookmark added!") {
-                                    news!.bookmark2 = true;
+                                    widget.news!.bookmark2 = true;
                                   } else {
-                                    news!.bookmark2 = false;
+                                    widget.news!.bookmark2 = false;
                                   }
                                   controller.news.refresh();
                                 }
                               },
-                              child: news!.bookmark2 == false
+                              child: widget.news!.bookmark2 == false
                                   ? Icon(
                                       Icons.bookmark_border,
                                       color: ColorUtilities.kdarkGreyColor,
@@ -199,7 +212,7 @@ class NewsItemWidget extends GetView<NewsController> {
           )
         : GestureDetector(
             onTap: () async => await launchUrl(
-                Uri.parse(news!.ads!.postData!.guid.toString()),
+                Uri.parse(widget.news!.ads!.postData!.guid.toString()),
                 mode: LaunchMode.externalApplication),
             child: Container(
               height: Get.height,
@@ -224,7 +237,8 @@ class NewsItemWidget extends GetView<NewsController> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: Image.network(
-                        news!.ads!.image.toString(),
+                        ImageUrl().generateImageUrl(
+                            widget.news!.ads!.image.toString()),
                         height: Get.height / 1.4,
                         width: Get.width,
                         fit: BoxFit.fill,

@@ -121,13 +121,14 @@ class AuthController extends GetxController {
         final userCredential =
             await _auth.signInWithCredential(facebookCredential);
 
-        Get.log(userCredential.toString());
+        Get.log(userCredential.additionalUserInfo!.profile.toString());
 
         firstName = userCredential.user!.displayName;
         lastName = userCredential.user!.displayName;
         name = userCredential.user!.displayName;
         email = userCredential.user!.email;
-        imageUrl = userCredential.user!.photoURL;
+        imageUrl = userCredential.additionalUserInfo!.profile!['picture']
+            ['data']['url'];
         id = userCredential.user!.uid;
         idToken = userCredential.user!.refreshToken;
         provider = "FACEBOOK";

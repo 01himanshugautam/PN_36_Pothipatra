@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_share/flutter_share.dart';
 import 'package:get/get.dart';
 import 'package:pothipatra/common/color_utils.dart';
@@ -18,6 +20,9 @@ class ProfileView extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
     context.theme;
+    log(
+      Get.find<AuthService>().user.value.photoUrl.toString(),
+    );
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
@@ -32,23 +37,24 @@ class ProfileView extends GetView<ProfileController> {
                       children: [
                         if (Get.find<AuthService>().user.value.photoUrl != null)
                           Align(
-                              alignment: Alignment.center,
-                              child: CircleAvatar(
-                                radius: 50,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(50),
-                                  child: Image.network(
-                                    Get.find<AuthService>()
-                                        .user
-                                        .value
-                                        .photoUrl
-                                        .toString(),
-                                    fit: BoxFit.cover,
-                                    width: 100,
-                                    height: 100,
-                                  ),
+                            alignment: Alignment.center,
+                            child: CircleAvatar(
+                              radius: 50,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(50),
+                                child: Image.network(
+                                  Get.find<AuthService>()
+                                      .user
+                                      .value
+                                      .photoUrl
+                                      .toString(),
+                                  fit: BoxFit.cover,
+                                  width: 100,
+                                  height: 100,
                                 ),
-                              )),
+                              ),
+                            ),
+                          ),
                         hSizedBox1,
                         Text(
                           Get.find<AuthService>().user.value.name.toString(),

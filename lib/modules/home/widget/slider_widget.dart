@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pothipatra/common/image_url.dart';
 
 import '../../../common/color_utils.dart';
 import '../../../models/news_model.dart';
@@ -18,7 +19,7 @@ class SliderWidget extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: Image.network(
-              news.image.toString(),
+              ImageUrl().generateImageUrl(news.image.toString()),
               fit: BoxFit.fill,
               width: MediaQuery.of(context).size.width,
             ),

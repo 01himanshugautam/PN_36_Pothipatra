@@ -19,6 +19,7 @@ class NewsController extends GetxController
   int initialPage = 1;
 
   final isLoading = false.obs;
+  final postLike = false.obs;
   CategoryRepository? categoryRepository;
 
   NewsController() {

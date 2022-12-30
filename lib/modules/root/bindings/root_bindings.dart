@@ -11,34 +11,24 @@ import '../controllers/root_controller.dart';
 class RootBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<RootController>(
-      () => RootController(),
-    );
+    Get.lazyPut<RootController>(() => RootController());
 
+    Get.lazyPut<FeedController>(() => FeedController());
     Get.put(FeedController(), permanent: true);
-    Get.put(NewsController(), permanent: true);
-    Get.put(BookMarkController(), permanent: true);
-    Get.put(HomeController(), permanent: true);
-    Get.put(ProfileController(), permanent: true);
-    Get.put(ThemeModeController(), permanent: true);
 
-    Get.lazyPut<FeedController>(
-      () => FeedController(),
-    );
-    Get.lazyPut<NewsController>(
-      () => NewsController(),
-    );
-    Get.lazyPut<BookMarkController>(
-      () => BookMarkController(),
-    );
-    Get.lazyPut<HomeController>(
-      () => HomeController(),
-    );
-    Get.lazyPut<ProfileController>(
-      () => ProfileController(),
-    );
-    Get.lazyPut<ThemeModeController>(
-      () => ThemeModeController(),
-    );
+    Get.lazyPut<NewsController>(() => NewsController());
+    Get.put(NewsController(), permanent: true);
+
+    Get.lazyPut<BookMarkController>(() => BookMarkController());
+    Get.put(BookMarkController(), permanent: true);
+
+    Get.lazyPut<HomeController>(() => HomeController());
+    Get.put(HomeController(), permanent: true);
+
+    Get.lazyPut<ProfileController>(() => ProfileController());
+    Get.put(ProfileController(), permanent: true);
+
+    Get.lazyPut<ThemeModeController>(() => ThemeModeController());
+    Get.put(ThemeModeController(), permanent: true);
   }
 }

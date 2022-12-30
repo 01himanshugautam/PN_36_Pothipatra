@@ -453,7 +453,7 @@ class _CustomSwipeState extends State<CustomSwipe>
     } else if (detectedDirection == AppinioSwiperDirection.right) {
       final BottomNavigationBar navigationBar =
           globalKey.currentWidget as BottomNavigationBar;
-      navigationBar.onTap!(2);
+      navigationBar.onTap!(3);
     }
   }
 

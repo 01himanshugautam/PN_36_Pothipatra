@@ -1,6 +1,7 @@
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:pothipatra/common/image_url.dart';
 import 'package:pothipatra/common/string_extension.dart';
 import 'package:pothipatra/services/auth_service.dart';
 
@@ -42,7 +43,8 @@ class BookMarkDetailView extends GetView<BookMarkDetailController> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(12),
                         child: Image.network(
-                          controller.news.value.image.toString(),
+                          ImageUrl().generateImageUrl(
+                              controller.news.value.image.toString()),
                           height: 200,
                           width: MediaQuery.of(context).size.width,
                           fit: BoxFit.fill,

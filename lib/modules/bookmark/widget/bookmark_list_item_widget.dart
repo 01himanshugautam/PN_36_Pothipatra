@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
+import 'package:pothipatra/common/image_url.dart';
 import 'package:pothipatra/models/bookmark_model.dart';
-import 'package:pothipatra/models/news_model.dart';
 import 'package:pothipatra/modules/bookmark/controller/bookmark_controller.dart';
 import 'package:pothipatra/services/auth_service.dart';
 
@@ -35,7 +35,7 @@ class BookmarkListItemWidget extends GetView<BookMarkController> {
             borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
             child: Image.network(
-              news!.image.toString(),
+              ImageUrl().generateImageUrl(news!.image.toString()),
               width: 110,
               height: 110,
               fit: BoxFit.cover,

@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:pothipatra/common/asset_utils.dart';
 import 'package:pothipatra/common/color_utils.dart';
+import 'package:pothipatra/common/image_url.dart';
 import 'package:pothipatra/models/searchNewsResponseModel.dart';
 import 'package:pothipatra/modules/global_widgets/font_style_util.dart';
 import 'package:pothipatra/modules/global_widgets/sizes_box.dart';
@@ -45,7 +46,7 @@ class SearchListItemWidget extends GetView<SearchController> {
                       topLeft: Radius.circular(10),
                       bottomLeft: Radius.circular(10)),
                   child: Image.network(
-                    news.image.toString(),
+                    ImageUrl().generateImageUrl(news.image.toString()),
                     width: 110,
                     height: 110,
                     fit: BoxFit.fill,

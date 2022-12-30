@@ -27,6 +27,7 @@ class NewsView extends GetView<NewsController> {
                   nextPage: () {
                     controller.initialPage = controller.initialPage + 1;
                     log("Next page ${controller.initialPage}");
+
                     controller.refreshNews(page: controller.initialPage);
                   },
                 )
